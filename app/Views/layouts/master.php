@@ -11,7 +11,7 @@
         <div class="row">
             <?= $this->include('layouts/partials/sidebar') ?>
             <main class="col-md-9 ml-sm-auto col-lg-10 p-md-4">
-                <?= $this->include('layouts/partials/Topbar') ?>
+                <?= $this->include('layouts/partials/topbar') ?>
                 <?= $this->renderSection('content') ?>
             </main>
         </div>
