@@ -12,7 +12,7 @@ Below are the steps to run the Nomupay application:
 
 2. **Clone the Repository:**
    ```
-   git clone https://github.com/username/Nomupay.git
+   git clone https://github.com/ridwanpratama/nomupay.git
    ```
 
 3. **Install Dependencies:**
