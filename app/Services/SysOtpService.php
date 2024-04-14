@@ -80,7 +80,7 @@ class SysOtpService
 
         return $model->where('user_id', session('id'))
             ->where('code', $codeValue)
-            ->where('is_used', false)
+            ->where('is_used', 0)
             ->where('expired_at >', date('Y-m-d H:i:s'))
             ->first();
     }
