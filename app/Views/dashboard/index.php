@@ -1,4 +1,4 @@
-<?= $this->extend('layouts\master') ?>
+<?= $this->extend('layouts/master') ?>
 
 <?= $this->section('content') ?>
 <div class="content mt-4">
