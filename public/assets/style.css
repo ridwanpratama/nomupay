@@ -1,0 +1,146 @@
+.sidebar {
+  height: 100vh;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 0rem 1rem 1rem 0rem;
+}
+
+.sidebar-sticky {
+  top: 20px;
+  position: sticky;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #1a1d20;
+  height: 6rem;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-brand span {
+  color: #0a58ca;
+}
+
+.nav-item .nav-link {
+  padding: 0.8rem;
+  font-weight: 500;
+  color: #1a1d20;
+  font-size: 1rem;
+}
+
+.nav-link:hover {
+  color: #0a58ca;
+}
+
+.nav-link.active {
+  background-color: #3bc9fd;
+  color: #fff;
+  border-radius: 0.5rem;
+}
+/* Sidebar End */
+
+/* Main */
+.top-bar-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.breadcrumb-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.breadcrumb-date {
+  display: inline-block;
+  font-size: 1rem;
+  color: #000000;
+  font-weight: 500;
+}
+
+.profile-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.profile-name {
+  display: inline-block;
+  font-size: 1rem;
+  color: #000000;
+  font-weight: 500;
+}
+/* Main End */
+
+.card {
+  border-radius: 1rem;
+  border: none;
+}
+
+.card.current-balance {
+  border: none;
+  background-color: #2d74fb;
+  color: #fff;
+  padding: 4rem 3rem 4rem 2rem;
+}
+
+.card.current-balance .title {
+  font-size: 2rem;
+}
+
+.card.current-balance .card-text {
+  font-size: 2rem;
+}
+
+.card.income,
+.card.outcome {
+  border: none;
+  padding: 0.6rem;
+}
+
+.card.category {
+  border: none;
+}
+
+.card.overview {
+  border: none;
+}
+
+.card.topup {
+  border: none;
+  color: #fff;
+  padding: 4.5rem 3rem 4rem 2rem;
+}
+
+.card.withdraw {
+  border: none;
+  background-color: orange;
+  color: #fff;
+  padding: 4.5rem 3rem 4rem 2rem;
+}
+
+.card.topup .title,
+.card.withdraw .title {
+  font-size: 1rem;
+}
+
+.card.topup .card-text,
+.card.withdraw .card-text {
+  font-size: 1.55rem;
+}
+
+.card.topup:hover,
+.card.withdraw:hover,
+.card.qr-pay:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
