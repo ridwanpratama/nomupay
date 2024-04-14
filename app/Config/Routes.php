@@ -20,6 +20,7 @@ $routes->group('auth', ['filter' => 'noauth'], static function ($routes) {
     $routes->post('send-reset-link', 'Auth\ForgotPasswordController::sendResetPasswordLink');
     $routes->get('forgot-password-sent', 'Auth\ForgotPasswordController::resetLinkSent');
     $routes->get('reset-password', 'Auth\ForgotPasswordController::resetPassword');
+    $routes->post('reset-password', 'Auth\ForgotPasswordController::updateResetPassword');
 });
 
 $routes->group('mypanel', ['filter' => 'auth'], static function ($routes) {

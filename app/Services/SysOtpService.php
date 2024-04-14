@@ -86,7 +86,7 @@ class SysOtpService
     }
 
     /**
-     * Updates a single row in the database.
+     * Updates a single sys_otp row in the database.
      *
      * @param int $id The ID of the row to update.
      * @param array<string, mixed> $data The data to update the row with.

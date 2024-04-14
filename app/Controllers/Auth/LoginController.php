@@ -2,6 +2,7 @@
 namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
+use App\Helpers\SetSessionData;
 use App\Services\SysOtpService;
 use App\Services\UserService;
 use CodeIgniter\HTTP\RedirectResponse;
@@ -57,34 +58,12 @@ class LoginController extends BaseController
      */
     private function setLoginOtpSession(array $user): void
     {
-        $this->setSessionData($user, false);
+        $setSessionData = new SetSessionData();
+        $setSessionData->create($user, false);
 
         $otp = $this->sysOtpService->generateOTP();
         $this->sysOtpService->sendOTP((string) $user['phone'], $otp);
         session()->set('otp', $otp);
-    }
-
-    /**
-     * Sets session data for the user.
-     *
-     * @param array $user The user data array.
-     * @param bool $isLoggedIn The user's login status.
-     * @return void
-     */
-    private function setSessionData(array $user, bool $isLoggedIn): void
-    {
-        /**
-         * @var Session $session
-         */
-        $session     = session();
-        $sessionData = [
-            'id'         => (int) $user['id'],
-            'name'       => (string) $user['name'],
-            'email'      => (string) $user['email'],
-            'phone'      => (string) $user['phone'],
-            'isLoggedIn' => $isLoggedIn,
-        ];
-        $session->set($sessionData);
     }
 
     /**

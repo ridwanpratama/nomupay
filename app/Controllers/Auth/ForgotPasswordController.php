@@ -4,10 +4,12 @@ namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
 use App\Helpers\GenerateRandomString;
+use App\Helpers\SetSessionData;
 use App\Services\UserService;
 use App\ThirdParty\Fonnte;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\RedirectResponse;
+use Exception;
 
 class ForgotPasswordController extends BaseController
 {
@@ -46,7 +48,7 @@ class ForgotPasswordController extends BaseController
 
         $postData = $this->request->getPost();
 
-        if (!$this->validateFormResetPasswordRequest($postData)) {
+        if (!$this->validateFormResetPasswordRequest()) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -119,5 +121,52 @@ class ForgotPasswordController extends BaseController
         }
 
         return view('auth/new-password');
+    }
+
+    /**
+     * Updates a user's password based on a reset token.
+     * 
+     * If successful, it sets session data and redirects to the user's dashboard. Else redirect back with failed message
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse Redirects the user on success or failure (with error messages if applicable) 
+     * @throws Exception If the password reset operation fails or the user is not found 
+     */
+    public function updateResetPassword(): RedirectResponse
+    {
+        helper('form');
+        if (!$this->validateNewPasswordRequest()) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $token    = (string) $this->request->getPost('token');
+        $password = (string) $this->request->getPost('password');
+        $id       = (int) substr($token, -1);
+
+        try {
+            $user = $this->userService->findUserById((int) $id);
+            if (!$this->userService->resetUserPassword($id, $password) || !$user) {
+                throw new Exception('Password reset failed.');
+            }
+            $setSessionData = new SetSessionData();
+            $setSessionData->create($user, true);
+            return redirect()->to('mypanel/dashboard');
+        } catch (Exception $e) {
+            return redirect()->back()->with('errors', $e->getMessage());
+        }
+    }
+
+    /**
+     * Validate the request for reset password.
+     *
+     * @return bool Returns true if the validation passes, false otherwise.
+     */
+    private function validateNewPasswordRequest(): bool
+    {
+        $rules = [
+            'password'         => 'required|min_length[5]|password_strength[5]',
+            'confirm-password' => 'required|matches[password]',
+        ];
+
+        return $this->validate($rules);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\UserForgotPasswordModel;
@@ -66,11 +67,10 @@ class UserService
      * @param string $newPassword The new password to be set for the user.
      * @return bool True if the password is successfully updated, false otherwise.
      */
-
     public function updateUserPassword(int $userId, string $currentPassword, string $newPassword): bool
     {
         $user = $this->findUserById($userId);
-        if ( ! $user || ! password_verify($currentPassword, $user['password'])) {
+        if (!$user || !password_verify($currentPassword, $user['password'])) {
             return false;
         }
 
@@ -94,6 +94,13 @@ class UserService
         return $user ?? [];
     }
 
+    /**
+     * Stores a password reset token for a user.
+     *
+     * @param array $user  The user data (must include 'id').
+     * @param string $token The generated reset token.
+     * @return bool True on success, false on failure.
+     */
     public function storeResetPasswordUrl(array $user, string $token): bool
     {
         $userForgotPasswordModel = new UserForgotPasswordModel();
@@ -104,14 +111,42 @@ class UserService
         ]);
     }
 
-    public function findResetPasswordUrl(array $user, string $token)
+    /**
+     * Attempts to find an active password reset URL for a user based on their ID and token.
+     *
+     * @param array $user The user data (must include 'id').
+     * @param string $token The password reset token.
+     * @return array The reset URL data if found, otherwise an empty array.
+     */
+    public function findResetPasswordUrl(array $user, string $token): array
     {
         $userForgotPasswordModel = new UserForgotPasswordModel();
-        $url = $userForgotPasswordModel->where('user_id', $user['id'])
+        $url                     = $userForgotPasswordModel->where('user_id', $user['id'])
             ->where('token', $token)
             ->where('expired_at >', date('Y-m-d H:i:s'))
             ->first();
-            
+
         return $url ?? [];
+    }
+
+    /**
+     * Resets a user's password securely.
+     *
+     * @param int $userId The ID of the user whose password is to be reset.
+     * @param string $newPassword The new plain-text password.
+     * @return bool True if the password reset was successful, false otherwise.
+     */
+    public function resetUserPassword(int $userId, string $newPassword): bool
+    {
+        $user = $this->findUserById($userId);
+        if (!$user) {
+            return false;
+        }
+
+        $userModel = new UserModel();
+        return $userModel->update($userId, [
+            'password' => password_hash($newPassword, PASSWORD_DEFAULT),
+            'is_used'  => 1,
+        ]);
     }
 }
