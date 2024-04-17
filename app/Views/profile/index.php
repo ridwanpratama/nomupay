@@ -115,22 +115,23 @@
                 <div class="card-body">
                     <h5 class="card-title">Update Profile</h5>
 
-                    <form>
+                    <form action="">
                         <div class="mb-3">
                             <label for="image" class="form-label">Profile Image</label>
                             <input type="file" class="form-control" id="image">
                         </div>
+                        <input type="hidden" value="<?= session()->get('id') ?>" required>
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name">
+                            <label for="name" class="form-label">Name <span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="name" value="<?= session()->get('name') ?>" required>
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email">
+                            <label for="email" class="form-label">Email <span style="color: red;">*</span></label>
+                            <input type="email" class="form-control" id="email" value="<?= session()->get('email') ?>" required>
                         </div>
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input type="text" class="form-control" id="phone">
+                            <label for="phone" class="form-label">Phone <span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="phone" value="<?= session()->get('phone') ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
