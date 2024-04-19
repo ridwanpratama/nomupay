@@ -16,6 +16,7 @@ class UserModel extends Model
         'phone',
         'email',
         'password',
+        'last_login_ip',
     ];
 
     protected bool $allowEmptyInserts = false;

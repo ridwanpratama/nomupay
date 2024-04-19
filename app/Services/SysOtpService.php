@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Services;
 
-use App\Models\SysOtpModel;
+use App\Models\UserModel;
 use App\ThirdParty\Fonnte;
+use App\Models\SysOtpModel;
 
 class SysOtpService
 {
@@ -62,6 +64,10 @@ class SysOtpService
 
         if ($otp) {
             $this->update($otp['id'], ['is_used' => 1]);
+            $userModel = new UserModel();
+            $userModel->update(session()->get('id'), [
+                'last_login_ip'  => 1,
+            ]);
             return true;
         }
 
