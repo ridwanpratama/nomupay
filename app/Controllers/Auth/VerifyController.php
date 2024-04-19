@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
@@ -34,9 +35,13 @@ class VerifyController extends BaseController
     public function checkVerifyOTP(): RedirectResponse
     {
         $enteredOTP = $this->request->getVar('otp');
-        if ( ! $this->sysOtpService->isValid($enteredOTP)) {
-            session()->setFlashdata('error', 'Invalid OTP code');
-            return redirect()->to('auth/verify-otp');
+        $ip = $this->request->getVar('ip-address');
+        
+        if (session()->get('last_login_ip') != $ip) {
+            if (!$this->sysOtpService->isValid($enteredOTP, $ip)) {
+                session()->setFlashdata('error', 'Invalid OTP code');
+                return redirect()->to('auth/verify-otp');
+            }
         }
 
         session()->set('isLoggedIn', true);
