@@ -61,7 +61,6 @@ class SysOtpService
     public function isValid(string $code, string $ip): bool
     {
         $otp = $this->findByCodeValue($code);
-
         if ($otp) {
             $this->update($otp['id'], ['is_used' => 1]);
             $userModel = new UserModel();

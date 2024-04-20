@@ -42,11 +42,11 @@ class LoginController extends BaseController
     public function login(): RedirectResponse
     {
         $user = $this->userService->findUserByEmail($this->request->getVar('email'));
+        $currentIp = $this->request->getVar('ip-address');
 
         if ($user && password_verify($this->request->getVar('password'), $user['password'])) {
-            $getClientIP = new GetClientIP();
-            if ($getClientIP->get() != $user['last_login_ip']) {
-                $user['last_login_ip'] = $getClientIP->get();
+            if ($currentIp != $user['last_login_ip']) {
+                $user['last_login_ip'] = $currentIp;
                 $this->setLoginOtpSession($user);
             } else {
                 $setSessionData = new SetSessionData();
