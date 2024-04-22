@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\UserProfile;
 use App\Services\UserService;
 
 class ProfileController extends BaseController
@@ -26,5 +27,35 @@ class ProfileController extends BaseController
         $profile = $this->userService->findUserProfileByUserId(session()->get('id'));
 
         return view('profile/index', compact('profile'));
+    }
+
+    public function update()
+    {
+        if ($this->request->getPost('id') != '') {
+            $id = $this->request->getPost('id');
+
+            $userProfile = new UserProfile();
+
+            $userProfile->update($id, [
+                            'address'       => $this->request->getPost('address'),
+                            'city'          => $this->request->getPost('city'),
+                            'postal_code'   => $this->request->getPost('postal_code'),
+                            'image'         => $this->request->getPost('image')
+                        ]);
+
+            return redirect()->to('mypanel/profile');
+        } else {
+            $userProfile = new UserProfile();
+
+            $userProfile->insert([
+                'user_id'       => $this->request->getPost('user_id'),
+                'address'       => $this->request->getPost('address'),
+                'city'          => $this->request->getPost('city'),
+                'postal_code'   => $this->request->getPost('postal_code'),
+                'image'         => $this->request->getPost('image')
+            ]);
+
+            return redirect()->to('mypanel/profile');
+        }
     }
 }

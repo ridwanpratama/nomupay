@@ -34,7 +34,7 @@ class UserService
     {
         $profile = (new UserProfile())
             ->asArray()
-            ->where('id', $userId)
+            ->where('user_id', $userId)
             ->first();
 
         return $profile ?? [];

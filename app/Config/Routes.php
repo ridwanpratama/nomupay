@@ -29,7 +29,7 @@ $routes->group('mypanel', ['filter' => 'auth'], static function ($routes) {
 
     $routes->group('profile', static function ($routes) {
         $routes->get('/', 'ProfileController::index');
-        $routes->post('/', 'ProfileController::update');
+        $routes->post('update', 'ProfileController::update');
 
         $routes->put('update-password', 'Auth\UpdatePasswordController::updatePassword');
     });

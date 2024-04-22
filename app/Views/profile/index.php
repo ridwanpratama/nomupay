@@ -115,35 +115,37 @@
                 <div class="card-body">
                     <h5 class="card-title">Update Profile</h5>
 
-                    <form action="">
+                    <form action="<?= base_url(); ?>mypanel/profile/update" method="post">
+                        <?= csrf_field() ?>
                         <div class="mb-3">
                             <label for="image" class="form-label">Profile Image</label>
-                            <input type="file" class="form-control" id="image">
+                            <input type="file" class="form-control" name="image" id="image">
                         </div>
-                        <input type="hidden" value="<?= session()->get('id') ?>" required>
+                        <input type="hidden" name="user_id" value="<?= session()->get('id') ?>" required>
                         <div class="mb-3">
                             <label for="name" class="form-label">Name <span style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="name" value="<?= session()->get('name') ?>" required>
+                            <input type="text" class="form-control" name="name" id="name" value="<?= session()->get('name') ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email <span style="color: red;">*</span></label>
-                            <input type="email" class="form-control" id="email" value="<?= session()->get('email') ?>" required>
+                            <input type="email" class="form-control" name="email" id="email" value="<?= session()->get('email') ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Phone <span style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="phone" value="<?= session()->get('phone') ?>" required>
+                            <input type="text" class="form-control" name="phone" id="phone" value="<?= session()->get('phone') ?>" required>
                         </div>
+                        <input type="hidden" name="id" value="<?= $profile['id'] ?? '' ?>">
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address">
+                            <input type="text" class="form-control" name="address" id="address" value="<?= $profile['address'] ?? '' ?>">
                         </div>
                         <div class="mb-3">
                             <label for="city" class="form-label">City</label>
-                            <input type="text" class="form-control" id="city">
+                            <input type="text" class="form-control" name="city" id="city" value="<?= $profile['city'] ?? '' ?>">
                         </div>
                         <div class="mb-3">
-                            <label for="postalCode" class="form-label">Postal Code</label>
-                            <input type="text" class="form-control" id="postalCode">
+                            <label for="postal_code" class="form-label">Postal Code</label>
+                            <input type="text" class="form-control" name="postal_code" id="postal_code" value="<?= $profile['postal_code'] ?? '' ?>">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
