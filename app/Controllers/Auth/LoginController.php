@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Controllers\Auth;
 
-use App\Controllers\BaseController;
+use App\Helpers\GetClientIP;
+use App\Services\UserService;
 use App\Helpers\SetSessionData;
 use App\Services\SysOtpService;
-use App\Services\UserService;
+use App\Controllers\BaseController;
 use CodeIgniter\HTTP\RedirectResponse;
 
 class LoginController extends BaseController
@@ -40,9 +42,19 @@ class LoginController extends BaseController
     public function login(): RedirectResponse
     {
         $user = $this->userService->findUserByEmail($this->request->getVar('email'));
+        $currentIp = $this->request->getVar('ip-address');
 
         if ($user && password_verify($this->request->getVar('password'), $user['password'])) {
-            $this->setLoginOtpSession($user);
+            if ($currentIp != $user['last_login_ip']) {
+                $user['last_login_ip'] = $currentIp;
+                $this->setLoginOtpSession($user);
+            } else {
+                $setSessionData = new SetSessionData();
+                $setSessionData->create($user, true);
+
+                return redirect()->to('mypanel/dashboard');
+            }
+
             return redirect()->to('auth/verify-otp');
         }
 

@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Services;
 
-use App\Models\SysOtpModel;
+use App\Models\UserModel;
 use App\ThirdParty\Fonnte;
+use App\Models\SysOtpModel;
 
 class SysOtpService
 {
@@ -56,12 +58,15 @@ class SysOtpService
      * @param string $otp The OTP code to check.
      * @return bool Whether the given OTP code is valid for the current user.
      */
-    public function isValid(string $code): bool
+    public function isValid(string $code, string $ip): bool
     {
         $otp = $this->findByCodeValue($code);
-
         if ($otp) {
             $this->update($otp['id'], ['is_used' => 1]);
+            $userModel = new UserModel();
+            $userModel->update(session()->get('id'), [
+                'last_login_ip'  => $ip,
+            ]);
             return true;
         }
 

@@ -23,6 +23,7 @@ class SetSessionData
             'email'      => (string) $user['email'],
             'phone'      => (string) $user['phone'],
             'isLoggedIn' => $isLoggedIn,
+            'last_login_ip' => (string) $user['last_login_ip'],
         ];
         $session->set($sessionData);
     }
