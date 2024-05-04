@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="send.html">
+                <a class="nav-link" href="<?= base_url(); ?>mypanel/send">
                     <i class="fas fa-paper-plane me-3"></i> Send
                 </a>
             </li>

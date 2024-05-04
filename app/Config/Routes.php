@@ -39,6 +39,11 @@ $routes->group('mypanel', ['filter' => 'auth'], static function ($routes) {
     $routes->group('transaction', static function ($routes) {
         $routes->get('/', 'TransactionController::index');
     });
+
+    // Routes Send
+    $routes->group('send', static function ($routes) {
+        $routes->get('/', 'SendController::index');
+    });
 });
 
 $routes->get('/', 'Home::index');
