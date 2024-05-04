@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="transaction.html">
+                <a class="nav-link" href="<?= base_url(); ?>mypanel/transaction">
                     <i class="fas fa-credit-card me-3"></i> Transaction
                 </a>
             </li>

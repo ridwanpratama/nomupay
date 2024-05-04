@@ -27,11 +27,17 @@ $routes->group('mypanel', ['filter' => 'auth'], static function ($routes) {
     $routes->get('logout', 'Auth\LoginController::logout');
     $routes->get('dashboard', 'DashboardController::index');
 
+    // Routes Profile
     $routes->group('profile', static function ($routes) {
         $routes->get('/', 'ProfileController::index');
         $routes->post('update', 'ProfileController::update');
 
         $routes->put('update-password', 'Auth\UpdatePasswordController::updatePassword');
+    });
+
+    // Routes Transaction
+    $routes->group('transaction', static function ($routes) {
+        $routes->get('/', 'TransactionController::index');
     });
 });
 
