@@ -8,17 +8,17 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="transaction.html">
+                <a class="nav-link" href="<?= base_url(); ?>mypanel/transaction">
                     <i class="fas fa-credit-card me-3"></i> Transaction
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="send.html">
+                <a class="nav-link" href="<?= base_url(); ?>mypanel/send">
                     <i class="fas fa-paper-plane me-3"></i> Send
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="receive.html">
+                <a class="nav-link" href="<?= base_url(); ?>mypanel/receive">
                     <i class="fas fa-inbox me-3"></i> Receive
                 </a>
             </li>
