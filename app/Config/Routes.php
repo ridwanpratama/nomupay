@@ -44,6 +44,11 @@ $routes->group('mypanel', ['filter' => 'auth'], static function ($routes) {
     $routes->group('send', static function ($routes) {
         $routes->get('/', 'SendController::index');
     });
+
+    // Routes Receive
+    $routes->group('receive', static function ($routes) {
+        $routes->get('/', 'ReceiveController::index');
+    });
 });
 
 $routes->get('/', 'Home::index');

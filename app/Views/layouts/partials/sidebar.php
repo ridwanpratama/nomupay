@@ -18,7 +18,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="receive.html">
+                <a class="nav-link" href="<?= base_url(); ?>mypanel/receive">
                     <i class="fas fa-inbox me-3"></i> Receive
                 </a>
             </li>
