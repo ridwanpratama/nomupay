@@ -19,7 +19,7 @@ class LoginController extends BaseController
      */
     public function __construct()
     {
-        $this->userService   = new UserService();
+        $this->userService = new UserService();
         $this->sysOtpService = new SysOtpService();
     }
 
@@ -30,8 +30,8 @@ class LoginController extends BaseController
      */
     public function index(): string
     {
-        helper(['form']);
-        return view('auth/login');
+        helper(["form"]);
+        return view("auth/login");
     }
 
     /**
@@ -41,25 +41,25 @@ class LoginController extends BaseController
      */
     public function login(): RedirectResponse
     {
-        $user = $this->userService->findUserByEmail($this->request->getVar('email'));
-        $currentIp = $this->request->getVar('ip-address');
+        $user = $this->userService->findUserByEmail($this->request->getVar("email"));
+        $currentIp = $this->request->getVar("ip-address");
 
-        if ($user && password_verify($this->request->getVar('password'), $user['password'])) {
-            if ($currentIp != $user['last_login_ip']) {
-                $user['last_login_ip'] = $currentIp;
+        if ($user && password_verify($this->request->getVar("password"), $user["password"])) {
+            if ($currentIp != $user["last_login_ip"]) {
+                $user["last_login_ip"] = $currentIp;
                 $this->setLoginOtpSession($user);
             } else {
                 $setSessionData = new SetSessionData();
                 $setSessionData->create($user, true);
 
-                return redirect()->to('mypanel/dashboard');
+                return redirect()->to("mypanel/dashboard");
             }
 
-            return redirect()->to('auth/verify-otp');
+            return redirect()->to("auth/verify-otp");
         }
 
-        session()->setFlashdata('error', 'Invalid credentials');
-        return redirect()->to('auth/login');
+        session()->setFlashdata("error", "Invalid credentials");
+        return redirect()->to("auth/login");
     }
 
     /**
@@ -74,8 +74,8 @@ class LoginController extends BaseController
         $setSessionData->create($user, false);
 
         $otp = $this->sysOtpService->generateOTP();
-        $this->sysOtpService->sendOTP((string) $user['phone'], $otp);
-        session()->set('otp', $otp);
+        $this->sysOtpService->sendOTP((string) $user["phone"], $otp);
+        session()->set("otp", $otp);
     }
 
     /**
@@ -86,6 +86,6 @@ class LoginController extends BaseController
     public function logout(): RedirectResponse
     {
         session()->destroy();
-        return redirect()->to('auth/login');
+        return redirect()->to("auth/login");
     }
 }
