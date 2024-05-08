@@ -44,9 +44,8 @@ class TransactionController extends BaseController
         $metode = $this->request->getPost('payment_method_id');
 
         $tokopayLib = new TokopayLib();
-        // $createOrder = $tokopayLib->createOrder($amount, $trxId, $metode);
-        $createOrder = '{"data":{"nomor_va":"4041601948964285","panduan_pembayaran":"\u003col\u003e\u003cli\u003eBuka \u003cstrong\u003eBCA mobile\u003c/strong\u003e.\u003c/li\u003e\u003cli\u003ePilih menu m-Transfer.\u003c/li\u003e\u003cli\u003ePilih menu \u003cstrong\u003eBCA Virtual Account\u003c/strong\u003e.\u003c/li\u003e\u003cli\u003eMasukkan nomor \u003cstrong\u003eBCA Virtual Account\u003c/strong\u003e.\u003c/li\u003e\u003cli\u003eKlik Send.\u003c/li\u003e\u003cli\u003eCek nominal yang muncul.\u003c/li\u003e\u003cli\u003eMasukkan PIN m-\u003cstrong\u003eBCA\u003c/strong\u003e.\u003c/li\u003e\u003cli\u003eNotifikasi transaksi berhasil akan muncul.\u003c/li\u003e\u003c/ol\u003e\u003cp\u003e\u003cbr\u003e\u003c/p\u003e","pay_url":"https://pay.tokopay.id/TP240508OMCJ018041","total_bayar":19200,"total_diterima":15000,"trx_id":"TP240508OMCJ018041"},"status":"Success"}';
-
+        $createOrder = $tokopayLib->createOrder($amount, $trxId, $metode);
+     
         $createOrder = json_decode($createOrder, true);
         if ($createOrder['status'] != 'Success') {
             return redirect()->back()->withInput()->with('errors', $createOrder['status']);
