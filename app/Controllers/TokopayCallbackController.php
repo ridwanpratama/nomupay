@@ -18,9 +18,9 @@ class TokopayCallbackController extends BaseController
 
     public function handle()
     {
-        $json = $this->request->getPost();
+        $this->response->setContentType('application/json');
+        $json = $this->request->getBody();
         $data = json_decode($json, true);
-
         if (isset($data['status'], $data['reff_id'], $data['signature'])) {
             $status = $data['status'];
             if ($status === "Success") {
