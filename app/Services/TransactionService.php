@@ -40,4 +40,10 @@ class TransactionService
 
         return json_encode(['success' => true]);
     }
+
+    public function getUserBalance($user_id)
+    {
+        $userBalanceModel = new UserBalance();
+        return $userBalanceModel->where('user_id', $user_id)->first();
+    }
 }

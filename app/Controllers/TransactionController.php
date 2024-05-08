@@ -22,7 +22,9 @@ class TransactionController extends BaseController
     public function index()
     {
         $paymentMethodTypes = $this->paymentMethodService->getPaymentMethodTypes();
-        return view('transaction/index', compact('paymentMethodTypes'));
+        $userBalance = $this->transactionService->getUserBalance(session('id'));
+        
+        return view('transaction/index', compact('paymentMethodTypes', 'userBalance'));
     }
 
     public function getPaymentMethods()

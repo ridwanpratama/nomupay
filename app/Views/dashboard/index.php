@@ -9,7 +9,7 @@
                     <div class="card current-balance shadow mb-4">
                         <div class="card-body">
                             <h5 class="card-title">Current Balance</h5>
-                            <p class="card-text">Rp 2,3000,000</p>
+                            <p class="card-text">Rp <?= number_format($userBalance['balance'], 0, ',', '.') ?></p>
                         </div>
                     </div>
                 </div>
