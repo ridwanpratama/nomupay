@@ -5,6 +5,7 @@ namespace Config;
 use App\Filters\Auth;
 use App\Filters\NoAuth;
 use CodeIgniter\Filters\CSRF;
+use App\Filters\CsrfExemptFilter;
 use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\DebugToolbar;
@@ -27,7 +28,7 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'auth'          => Auth::class,
-        'noauth'        => NoAuth::class
+        'noauth'        => NoAuth::class,
     ];
 
     /**
@@ -39,7 +40,9 @@ class Filters extends BaseConfig
     public array $globals = [
         'before' => [
             'honeypot',
-            'csrf',
+            'csrf' => ['except' => [
+                'callback-tokopay'
+            ]],
             // 'invalidchars',
         ],
         'after' => [

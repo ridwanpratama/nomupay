@@ -3,6 +3,7 @@
 namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
+use App\Models\UserBalance;
 use App\Models\UserModel;
 use CodeIgniter\HTTP\RedirectResponse;
 
@@ -38,6 +39,9 @@ class RegisterController extends BaseController
 
         $userModel = new UserModel();
         if ($userModel->insert($postData)) {
+            $userBalance = new UserBalance();
+            $userBalance->insert(['user_id' => $userModel->getInsertID()]);
+            
             return redirect()->to('auth/login')->with('success', 'User registered successfully');
         }
 

@@ -61,4 +61,6 @@ $routes->group("mypanel", ["filter" => "auth"], static function ($routes) {
 
 });
 
+$routes->post('/callback-tokopay', 'TokopayCallbackController::handle');
 $routes->get("/", "Home::index");
+    
