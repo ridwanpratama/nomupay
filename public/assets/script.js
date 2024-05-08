@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   navActive();
 });
-console.log(window.location.pathname.split("/").pop());
+
 function navActive() {
   const navItems = document.querySelectorAll(".nav-item .nav-link");
   const currentPage = window.location.origin + window.location.pathname;

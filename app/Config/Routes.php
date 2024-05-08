@@ -38,6 +38,10 @@ $routes->group("mypanel", ["filter" => "auth"], static function ($routes) {
     // Routes Transaction
     $routes->group("transaction", static function ($routes) {
         $routes->get("/", "TransactionController::index");
+        $routes->get("payment-method", "TransactionController::getPaymentMethods");
+        $routes->post("topup", "TransactionController::createTopup");
+        $routes->get("topup-instruction", "TransactionController::topupInstruction");
+        $routes->get('check-topup', 'TransactionController::checkTopupStatus');
     });
 
     // Routes Send
@@ -52,6 +56,9 @@ $routes->group("mypanel", ["filter" => "auth"], static function ($routes) {
     $routes->group("settings", static function ($routes) {
         $routes->get("/", "SettingsController::index");
     });
+
+    $routes->get('csrf-token', 'Auth\CsrfController::getToken');
+
 });
 
 $routes->get("/", "Home::index");
