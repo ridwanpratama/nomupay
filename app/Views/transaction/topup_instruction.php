@@ -15,29 +15,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
         }
 
         .container {
             max-width: 600px;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .card {
             border: none;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .card-body div {
-            margin-bottom: 10px;
         }
 
         .card-body strong {
@@ -57,20 +45,26 @@
 
 <body>
     <div class="container">
-        <div style="text-align: center; font-size: 24px; margin-bottom: 20px;">Topup Instruction</div>
-
         <div class="content">
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    $orderData = $createOrder;
+                        $orderData = $createOrder;
                     ?>
-                    <div class="card shadow-sm">
+                    <div class="card shadow-sm mt-2">
                         <div class="card-body">
+                        <div style="text-align: center; font-size: 24px;" class="mt-3 mb-1">Topup Instruction</div>
                             <div>
-                                <strong>Nomor VA:</strong> <?= htmlspecialchars($orderData['data']['nomor_va']) ?>
+                                <?php if(isset($orderData['data']['nomor_va'])): ?>
+                                    <strong>Nomor VA:</strong> <?= htmlspecialchars($orderData['data']['nomor_va']) ?>
+                                <?php endif; ?>
                             </div>
-
+                            <?php if($metode == 'QRIS'): ?>
+                                <div class="text-center mt-0">
+                                    <strong>QR Code:</strong>
+                                    <img src="<?= $orderData['data']['qr_link'] ?>" alt="QR Code" style="max-width: 100%;">
+                                </div>
+                            <?php endif; ?>
                             <div>
                                 <strong>Payment Instructions:</strong>
                                 <?= html_entity_decode($orderData['data']['panduan_pembayaran']) ?>
@@ -80,21 +74,17 @@
                             </div>
                             <div>
                                 <strong>Payment URL:</strong>
-                                <a href="<?= htmlspecialchars($orderData['data']['pay_url']) ?>" target="_blank">Pay Now</a>
+                                <a href="<?= htmlspecialchars($orderData['data']['pay_url']) ?>" target="_blank" class="btn btn-warning">Pay Now</a>
                             </div>
 
-                            <div>
+                            <div class="mt-1">
                                 <strong>Total to Pay:</strong> <?= number_format($orderData['data']['total_bayar']) ?>
                             </div>
 
-                            <div>
-                                <strong>Total Received:</strong> <?= number_format($orderData['data']['total_diterima']) ?>
-                            </div>
-
-                            <div>
+                            <div class="mt-2">
                                 <strong>Transaction ID:</strong> <?= htmlspecialchars($orderData['data']['trx_id']) ?>
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 <input type="hidden" name="trx_id" id="trx_id" value="<?= $trxId; ?>">
                                 <strong>Status: </strong> <span style="text-transform: capitalize;" id="status" class="bg-primary p-2 rounded text-white">Pending</span>
                                 <div class="float-end mt-3">
@@ -136,8 +126,10 @@
                             .then(response => {
                                 const status = response.data.status;
                                 document.getElementById('status').innerHTML = status;
-                                document.getElementById('status').classList.remove('bg-primary');
-                                document.getElementById('status').classList.add('bg-success');
+                                if (status === 'Success') {
+                                    document.getElementById('status').classList.remove('bg-primary');
+                                    document.getElementById('status').classList.add('bg-success');
+                                }               
                             })
                             .catch(error => {
                                 alert("Something went wrong. Please contact support.");

@@ -45,8 +45,9 @@ class TransactionController extends BaseController
 
         $tokopayLib = new TokopayLib();
         $createOrder = $tokopayLib->createOrder($amount, $trxId, $metode);
-     
+
         $createOrder = json_decode($createOrder, true);
+    
         if ($createOrder['status'] != 'Success') {
             return redirect()->back()->withInput()->with('errors', $createOrder['status']);
         }
