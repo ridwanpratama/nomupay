@@ -2,6 +2,9 @@
 
 namespace App\Helpers;
 
+use Config\Services;
+use App\Helpers\EncryptionHelper;
+
 class SetSessionData
 {
     /**
@@ -13,17 +16,15 @@ class SetSessionData
      */
     function create(array $user, bool $isLoggedIn): void
     {
-        /**
-         * @var Session $session
-         */
+        // Set other user data in the session
         $session     = session();
         $sessionData = [
-            'id'         => (int) $user['id'],
-            'name'       => (string) $user['name'],
-            'email'      => (string) $user['email'],
-            'phone'      => (string) $user['phone'],
-            'isLoggedIn' => $isLoggedIn,
-            'last_login_ip' => (string) $user['last_login_ip'],
+            'id'             => (int) $user['id'],
+            'name'           => (string) $user['name'],
+            'email'          => (string) $user['email'],
+            'phone'          => (string) $user['phone'],
+            'isLoggedIn'     => $isLoggedIn,
+            'last_login_ip'  => (string) $user['last_login_ip'],
         ];
         $session->set($sessionData);
     }

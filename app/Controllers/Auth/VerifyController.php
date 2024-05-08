@@ -2,8 +2,8 @@
 
 namespace App\Controllers\Auth;
 
-use App\Controllers\BaseController;
 use App\Services\SysOtpService;
+use App\Controllers\BaseController;
 use CodeIgniter\HTTP\RedirectResponse;
 
 class VerifyController extends BaseController
@@ -36,12 +36,10 @@ class VerifyController extends BaseController
     {
         $enteredOTP = $this->request->getVar('otp');
         $ip = $this->request->getVar('ip-address');
-        
-        if (session()->get('last_login_ip') != $ip) {
-            if (!$this->sysOtpService->isValid($enteredOTP, $ip)) {
-                session()->setFlashdata('error', 'Invalid OTP code');
-                return redirect()->to('auth/verify-otp');
-            }
+
+        if (!$this->sysOtpService->isValid($enteredOTP, $ip)) {
+            session()->setFlashdata('error', 'Invalid OTP code');
+            return redirect()->to('auth/verify-otp');
         }
 
         session()->set('isLoggedIn', true);

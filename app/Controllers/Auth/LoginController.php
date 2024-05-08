@@ -43,7 +43,7 @@ class LoginController extends BaseController
     {
         $user = $this->userService->findUserByEmail($this->request->getVar("email"));
         $currentIp = $this->request->getVar("ip-address");
-
+        
         if ($user && password_verify($this->request->getVar("password"), $user["password"])) {
             if ($currentIp != $user["last_login_ip"]) {
                 $user["last_login_ip"] = $currentIp;
