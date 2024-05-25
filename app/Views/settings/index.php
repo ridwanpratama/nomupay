@@ -1,5 +1,5 @@
 <?= $this->extend("layouts/master") ?>
 
 <?= $this->section("content") ?>
-    <div>Settings</div>
+    <div class="">Settings</div>
 <?= $this->endSection() ?>
