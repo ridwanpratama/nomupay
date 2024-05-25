@@ -1,6 +1,6 @@
-<?= $this->extend('layouts/master') ?>
+<?= $this->extend("layouts/master") ?>
 
-<?= $this->section('content') ?>
+<?= $this->section("content") ?>
 <div class="content mt-4">
     <div class="row">
         <div class="col-md-8">
@@ -9,14 +9,14 @@
                     <div class="card current-balance shadow mb-4">
                         <div class="card-body">
                             <h5 class="card-title">Current Balance</h5>
-                            <p class="card-text">Rp <?= number_format($userBalance['balance'], 0, ',', '.') ?></p>
+                            <p class="card-text">Rp <?= number_format($userBalance["balance"], 0, ",", ".") ?></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card income mb-4">
                         <div class="card-body d-flex align-items-center">
-                            <div class="icon-container me-5">
+                            <div class="icon-container me-3">
                                 <i class="fa-solid fa-arrow-trend-up text-primary fs-4"></i>
                             </div>
                             <div>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="card outcome">
                         <div class="card-body d-flex align-items-center">
-                            <div class="icon-container me-5">
+                            <div class="icon-container me-3">
                                 <i class="fa-solid fa-arrow-trend-down text-info fs-4"></i>
                             </div>
                             <div>
@@ -93,7 +93,7 @@
 </div>
 <?= $this->endSection() ?>
 
-<?= $this->section('script') ?>
+<?= $this->section("script") ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById("myChart");
