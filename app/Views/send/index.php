@@ -15,7 +15,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-3">
                             <h5 class="card-title d-inline-block me-2">Recipient</h5>
-                            <button type="button" class="btn btn-sm btn-primary">+ Add</button>
+                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addReceipent">+ Add</button>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -105,4 +105,5 @@
             </div>
         </div>
     </div>
+<?= $this->include('send/add-receipent') ?>
 <?= $this->endSection() ?>

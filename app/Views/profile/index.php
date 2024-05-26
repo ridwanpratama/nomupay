@@ -68,7 +68,6 @@
             <div class="card shadow mt-4">
                 <div class="card-body">
                     <h5 class="card-title d-inline-block me-2">Update Password</h5>
-                    <a href="" class="float-end text-decoration-none">Forgot Password?</a>
                     <?php if (session()->has('errors')) : ?>
                         <div class="alert alert-warning">
                             <?php

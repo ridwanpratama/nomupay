@@ -38,46 +38,43 @@
                                     <th scope="col">Date</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Type</th>
+                                    <th scope="col">Payment Method</th>
+                                    <th scope="col">Pay URL</th>
                                     <th scope="col">Amount</th>
+                                    <th scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>2022-01-01</td>
-                                    <td>Payment</td>
-                                    <td>Topup</td>
-                                    <td>Rp 1,000</td>
-                                </tr>
-                                <tr>
-                                    <td>2022-01-01</td>
-                                    <td>Payment</td>
-                                    <td>Sent</td>
-                                    <td>Rp 1,000</td>
-                                </tr>
-                                <tr>
-                                    <td>2022-01-01</td>
-                                    <td>Payment</td>
-                                    <td>Receive</td>
-                                    <td>Rp 1,000</td>
-                                </tr>
-                                <tr>
-                                    <td>2022-01-01</td>
-                                    <td>Payment</td>
-                                    <td>Receive</td>
-                                    <td>Rp 1,000</td>
-                                </tr>
-                                <tr>
-                                    <td>2022-01-01</td>
-                                    <td>Payment</td>
-                                    <td>Sent</td>
-                                    <td>Rp 1,000</td>
-                                </tr>
-                                <tr>
-                                    <td>2022-01-01</td>
-                                    <td>Payment</td>
-                                    <td>Topup</td>
-                                    <td>Rp 1,000</td>
-                                </tr>
+                                <?php foreach ($topUpHistory as $topup) : ?>
+                                    <tr>
+                                        <td><?= date('d-m-Y H:i', strtotime($topup['created_at'])) ?></td>
+                                        <td>Topup</td>
+                                        <td>In</td>
+                                        <td><?= $topup['payment_method'] ?></td>
+                                        <td>
+                                            <?php if (time() < strtotime('+1 hour', strtotime($topup['created_at'])) || $topup['status'] == 'Pending' && $topup['status'] != 'Success' && $topup['payment_link']) : ?>
+                                                <a href="<?= $topup['payment_link'] ?>" class="btn btn-warning btn-sm" target="_blank">Pay Now</a>
+                                            <?php else : ?>
+                                                <button type="button" class="btn btn-secondary btn-sm" disabled>Pay Now</button>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>Rp <?= number_format($topup['amount'], 0, ',', ',') ?></td>
+                                        <td>
+                                            <?php
+                                            if ($topup['status'] == 'Success') {
+                                                echo '<span class="badge bg-success">Success</span>';
+                                            } elseif (time() > strtotime('+1 hour', strtotime($topup['created_at']))) {
+                                                echo '<span class="badge bg-danger">Failed</span>';
+                                            } elseif ($topup['status'] == 'Pending') {
+                                                echo '<span class="badge bg-warning">Pending</span>';
+                                            } else {
+                                                echo '<span class="badge bg-danger">Failed</span>';
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+
                             </tbody>
                         </table>
                     </div>

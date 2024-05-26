@@ -23,8 +23,10 @@ class TransactionController extends BaseController
     {
         $paymentMethodTypes = $this->paymentMethodService->getPaymentMethodTypes();
         $userBalance = $this->transactionService->getUserBalance(session('id'));
+
+        $topUpHistory = $this->transactionService->getTopUpHistory(session('id'));
         
-        return view('transaction/index', compact('paymentMethodTypes', 'userBalance'));
+        return view('transaction/index', compact('paymentMethodTypes', 'userBalance', 'topUpHistory'));
     }
 
     public function getPaymentMethods()
@@ -42,7 +44,7 @@ class TransactionController extends BaseController
         }
 
         $amount = (float) str_replace(',', '', $postData['amount']);
-        $trxId = 'TOPUP' . session('id') . date('YmdHis') . random_int(10, 99);
+        $trxId = 'TOPUP' . session('id') . date('His') . random_int(10, 99);
         $metode = $this->request->getPost('payment_method_id');
 
         $tokopayLib = new TokopayLib();
@@ -53,7 +55,9 @@ class TransactionController extends BaseController
         if ($createOrder['status'] != 'Success') {
             return redirect()->back()->withInput()->with('errors', $createOrder['status']);
         }
-        $storeTopup = $this->transactionService->storeTopupTransaction($amount, $trxId, $metode);
+
+        $paymentLink = $createOrder['data']['pay_url'];
+        $storeTopup = $this->transactionService->storeTopupTransaction($amount, $trxId, $metode, $paymentLink);
 
         $session = session();
         $sessionData = [

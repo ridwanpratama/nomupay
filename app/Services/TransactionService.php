@@ -7,14 +7,15 @@ use App\Models\UserBalance;
 
 class TransactionService
 {
-    public function storeTopupTransaction($amount, $trxId, $metode)
+    public function storeTopupTransaction($amount, $trxId, $metode, $paymentLink)
     {
         $topupModel = new Topup();
         return $topupModel->insert([
             'id' => $trxId,
             'user_id' => session('id'),
             'amount' => $amount,
-            'payment_method' => $metode
+            'payment_method' => $metode,
+            'payment_link' => $paymentLink
         ]);
     }
 
@@ -26,7 +27,6 @@ class TransactionService
 
     public function updateTopupTransaction($amount, $trxId, $status)
     {
-
         $topupModel = new Topup();
         $topupModel->update($trxId, ['status' => $status]);
 
@@ -45,5 +45,11 @@ class TransactionService
     {
         $userBalanceModel = new UserBalance();
         return $userBalanceModel->where('user_id', $user_id)->first();
+    }
+
+    public function getTopUpHistory($user_id)
+    {
+        $topupModel = new Topup();
+        return $topupModel->where('user_id', $user_id)->findAll();
     }
 }
