@@ -114,7 +114,24 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Update Profile</h5>
-
+                    <?php if (session()->has('errors')) : ?>
+                        <div class="alert alert-warning">
+                            <?php
+                                $errors = session()->get('errors');
+                                if (is_array($errors)) {
+                                    foreach ($errors as $error) {
+                                        echo $error . '<br>';
+                                    }
+                                } else {
+                                    echo $errors;
+                                }
+                            ?>
+                        </div>
+                    <?php elseif (session()->has('berhasil')) : ?>
+                        <div class="alert alert-success">
+                            <?= session()->get('berhasil') ?>
+                        </div>
+                    <?php endif; ?>
                     <form action="<?= base_url(); ?>mypanel/profile/update" method="post">
                         <?= csrf_field() ?>
                         <div class="mb-3">

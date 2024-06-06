@@ -43,7 +43,7 @@ class ProfileController extends BaseController
                             'image'         => $this->request->getPost('image')
                         ]);
 
-            return redirect()->to('mypanel/profile');
+            return redirect()->to('mypanel/profile')->with('berhasil', 'Profil berhasil di perbaharui');
         } else {
             $userProfile = new UserProfile();
 
@@ -55,7 +55,7 @@ class ProfileController extends BaseController
                 'image'         => $this->request->getPost('image')
             ]);
 
-            return redirect()->to('mypanel/profile');
+            return redirect()->to('mypanel/profile')->with('errors');
         }
     }
 }
