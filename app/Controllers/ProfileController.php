@@ -31,6 +31,20 @@ class ProfileController extends BaseController
 
     public function update()
     {
+        $file = $this->request->getFile('image');
+
+        $newName = null;
+
+        if ($this->request->getPost('image_exist') != '') {
+            $newName = $this->request->getPost('image_exist');
+        } else {
+            if ($file->isValid() && !$file->hasMoved()) {
+                $newName = $file->getRandomName();
+    
+                $file->move(FCPATH . 'uploads/profile', $newName);
+            }
+        }
+
         if ($this->request->getPost('id') != '') {
             $id = $this->request->getPost('id');
 
@@ -40,7 +54,7 @@ class ProfileController extends BaseController
                             'address'       => $this->request->getPost('address'),
                             'city'          => $this->request->getPost('city'),
                             'postal_code'   => $this->request->getPost('postal_code'),
-                            'image'         => $this->request->getPost('image')
+                            'image'         => $newName,
                         ]);
 
             return redirect()->to('mypanel/profile')->with('berhasil', 'Profil berhasil di perbaharui');
@@ -52,7 +66,7 @@ class ProfileController extends BaseController
                 'address'       => $this->request->getPost('address'),
                 'city'          => $this->request->getPost('city'),
                 'postal_code'   => $this->request->getPost('postal_code'),
-                'image'         => $this->request->getPost('image')
+                'image'         => $newName
             ]);
 
             return redirect()->to('mypanel/profile')->with('berhasil', 'Profil berhasil di perbaharui');
