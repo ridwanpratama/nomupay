@@ -55,7 +55,7 @@ class ProfileController extends BaseController
                 'image'         => $this->request->getPost('image')
             ]);
 
-            return redirect()->to('mypanel/profile')->with('errors');
+            return redirect()->to('mypanel/profile')->with('berhasil', 'Profil berhasil di perbaharui');
         }
     }
 }
