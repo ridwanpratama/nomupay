@@ -61,7 +61,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div>
                                 <p class="mb-0">NomuPay</p>
-                                <p class="mb-0"><span class="text-primary">Sent</span> 20 Maret 2024</p>
+                                <p class="mb-0"><span class="text-light badge text-bg-danger">Sent</span> 20 Maret 2024</p>
                             </div>
                             <div>
                                 <p class="mb-0">Rp 2,3000,000</p>
@@ -70,7 +70,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div>
                                 <p class="mb-0">Coffee</p>
-                                <p class="mb-0"><span class="text-info">Receive</span> 20 Maret 2024</p>
+                                <p class="mb-0"><span class="text-light badge text-bg-primary">Receive</span> 20 Maret 2024</p>
                             </div>
                             <div>
                                 <p class="mb-0">Rp 200,000</p>
@@ -79,7 +79,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div>
                                 <p class="mb-0">General</p>
-                                <p class="mb-0"><span class="text-primary">Sent</span> 20 Maret 2024</p>
+                                <p class="mb-0"><span class="text-light badge text-bg-danger">Sent</span> 20 Maret 2024</p>
                             </div>
                             <div>
                                 <p class="mb-0">Rp 300,000</p>
@@ -99,21 +99,27 @@
     const ctx = document.getElementById("myChart");
 
     new Chart(ctx, {
-        type: "pie",
+        type: "doughnut",
         data: {
             labels: ["Appetizers", "Coffee", "Desserts", "Juice"],
             datasets: [{
                 label: "# of Votes",
                 data: [12, 19, 3, 5, 2],
                 borderWidth: 1,
+
             }, ],
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
+          plugins: {
+                customCanvasBackgroundColor: {
+                  color: 'transparent',
                 },
-            },
+                legend: {
+                  display: true,
+                  labels: {
+                    position: 'bottom'}
+                }
+            }
         },
     });
 </script>
@@ -127,15 +133,17 @@
             datasets: [{
                     label: "Income",
                     data: [1750000, 1850000, 2250000, 1950000, 2100000, 1450000, 2300000, 2400000, 2050000, 1500000, 1650000, 1950000],
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     borderColor: 'rgba(54, 162, 235, 1)',
+                    borderRadius: Number.MAX_VALUE,
                     borderWidth: 1
                 },
                 {
                     label: "Spend",
                     data: [1300000, 1250000, 1850000, 2000000, 1750000, 2150000, 1950000, 2200000, 1950000, 1700000, 1550000, 1800000],
-                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
                     borderColor: 'rgba(255, 99, 132, 1)',
+                    borderRadius: Number.MAX_VALUE,
                     borderWidth: 1
                 }
 

@@ -8,18 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/landing/plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/landing/plugins/bootstrap/bootstrap.min.css">
     <!-- themefy-icon -->
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/landing/plugins/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/landing/plugins/themify-icons/themify-icons.css">
     <!-- slick slider -->
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/landing/plugins/slick/slick.css">
-    <!-- venobox popup -->     
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/landing/plugins/Venobox/venobox.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/landing/plugins/slick/slick.css">
+    <!-- venobox popup -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/landing/plugins/Venobox/venobox.css">
     <!-- aos -->
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/landing/plugins/aos/aos.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/landing/plugins/aos/aos.css">
 
     <!-- Main Stylesheet -->
-    <link href="<?= base_url(); ?>assets/landing/css/style.css" rel="stylesheet">
+    <link href="<?= base_url() ?>assets/landing/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -45,9 +45,10 @@
                             <a class="nav-link" href="https://wa.me/6285710386771">Contact</a>
                         </li>
                     </ul>
-                    <a href="<?= base_url(); ?><?php if (session()->get('isLoggedIn')) : ?>mypanel/dashboard<?php else : ?>auth/register<?php endif; ?>" 
+                    <a href="<?= base_url() ?>
+                        <?php if (session()->get("isLoggedIn")): ?>mypanel/dashboard<?php else: ?>auth/register<?php endif; ?>"
                             class="btn btn-primary ml-lg-3 primary-shadow">
-                        <?= session()->get('isLoggedIn') ? 'Dashboard' : 'Sign Up' ?>
+                        <?= session()->get("isLoggedIn") ? "Dashboard" : "Sign Up" ?>
                     </a>
                 </div>
             </nav>
@@ -56,30 +57,30 @@
     <!-- /navigation -->
 
     <!-- hero area -->
-    <section class="hero-section hero" data-background="" style="background-image: url(<?= base_url(); ?>assets/landing/images/hero-area/banner-bg.png);">
+    <section class="hero-section hero" data-background="" style="background-image: url(<?= base_url() ?>assets/landing/images/hero-area/banner-bg.png);">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center zindex-1">
                     <h1 class="mb-3">Take Control of your<br>
                         Business Transactions</h1>
                     <p class="mb-4">Get your exclusive e-wallet for business with NomuPay! Send, receive, and pay transactions effortlessly</p>
-                    <a href="<?= base_url(); ?>auth/register" class="btn btn-secondary btn-lg">Get Started</a>
+                    <a href="<?= base_url() ?>auth/register" class="btn btn-secondary btn-lg">Get Started</a>
                     <!-- banner image -->
-                    <img class="img-fluid w-100 banner-image shadow rounded" src="<?= base_url(); ?>assets/landing/images/hero-area/banner-img-s.png" alt="banner-img">
+                    <img class="img-fluid w-100 banner-image shadow rounded" src="<?= base_url() ?>assets/landing/images/hero-area/banner-img-s.png" alt="banner-img">
                 </div>
             </div>
         </div>
         <!-- background shapes -->
         <div id="scene">
-            <img class="img-fluid hero-bg-1 up-down-animation" src="<?= base_url(); ?>assets/landing/images/background-shape/feature-bg-2.png" alt="">
-            <img class="img-fluid hero-bg-2 left-right-animation" src="<?= base_url(); ?>assets/landing/images/background-shape/seo-ball-1.png" alt="">
-            <img class="img-fluid hero-bg-3 left-right-animation" src="<?= base_url(); ?>assets/landing/images/background-shape/seo-half-cycle.png" alt="">
-            <img class="img-fluid hero-bg-4 up-down-animation" src="<?= base_url(); ?>assets/landing/images/background-shape/green-dot.png" alt="">
-            <img class="img-fluid hero-bg-5 left-right-animation" src="<?= base_url(); ?>assets/landing/images/background-shape/blue-half-cycle.png" alt="">
-            <img class="img-fluid hero-bg-6 up-down-animation" src="<?= base_url(); ?>assets/landing/images/background-shape/seo-ball-1.png" alt="">
-            <img class="img-fluid hero-bg-7 left-right-animation" src="<?= base_url(); ?>assets/landing/images/background-shape/yellow-triangle.png" alt="">
-            <img class="img-fluid hero-bg-8 up-down-animation" src="<?= base_url(); ?>assets/landing/images/background-shape/service-half-cycle.png" alt="">
-            <img class="img-fluid hero-bg-9 up-down-animation" src="<?= base_url(); ?>assets/landing/images/background-shape/team-bg-triangle.png" alt="">
+            <img class="img-fluid hero-bg-1 up-down-animation" src="<?= base_url() ?>assets/landing/images/background-shape/feature-bg-2.png" alt="">
+            <img class="img-fluid hero-bg-2 left-right-animation" src="<?= base_url() ?>assets/landing/images/background-shape/seo-ball-1.png" alt="">
+            <img class="img-fluid hero-bg-3 left-right-animation" src="<?= base_url() ?>assets/landing/images/background-shape/seo-half-cycle.png" alt="">
+            <img class="img-fluid hero-bg-4 up-down-animation" src="<?= base_url() ?>assets/landing/images/background-shape/green-dot.png" alt="">
+            <img class="img-fluid hero-bg-5 left-right-animation" src="<?= base_url() ?>assets/landing/images/background-shape/blue-half-cycle.png" alt="">
+            <img class="img-fluid hero-bg-6 up-down-animation" src="<?= base_url() ?>assets/landing/images/background-shape/seo-ball-1.png" alt="">
+            <img class="img-fluid hero-bg-7 left-right-animation" src="<?= base_url() ?>assets/landing/images/background-shape/yellow-triangle.png" alt="">
+            <img class="img-fluid hero-bg-8 up-down-animation" src="<?= base_url() ?>assets/landing/images/background-shape/service-half-cycle.png" alt="">
+            <img class="img-fluid hero-bg-9 up-down-animation" src="<?= base_url() ?>assets/landing/images/background-shape/team-bg-triangle.png" alt="">
         </div>
     </section>
     <!-- /hero-area -->
@@ -128,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- feature item -->
                 <div class="col-md-6 mb-80">
                     <div class="d-flex feature-item">
@@ -143,8 +144,8 @@
                 </div>
             </div>
         </div>
-        <img class="feature-bg-1 up-down-animation" src="<?= base_url(); ?>assets/landing/images/background-shape/feature-bg-1.png" alt="bg-shape">
-        <img class="feature-bg-2 left-right-animation" src="<?= base_url(); ?>assets/landing/images/background-shape/feature-bg-2.png" alt="bg-shape">
+        <img class="feature-bg-1 up-down-animation" src="<?= base_url() ?>assets/landing/images/background-shape/feature-bg-1.png" alt="bg-shape">
+        <img class="feature-bg-2 left-right-animation" src="<?= base_url() ?>assets/landing/images/background-shape/feature-bg-2.png" alt="bg-shape">
     </section>
     <!-- /feature -->
 
@@ -189,17 +190,17 @@
     <!-- /footer -->
 
     <!-- jQuery -->
-    <script src="<?= base_url(); ?>assets/landing/plugins/jQuery/jquery.min.js"></script>
+    <script src="<?= base_url() ?>assets/landing/plugins/jQuery/jquery.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="<?= base_url(); ?>assets/landing/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="<?= base_url() ?>assets/landing/plugins/bootstrap/bootstrap.min.js"></script>
     <!-- slick slider -->
-    <script src="<?= base_url(); ?>assets/landing/plugins/slick/slick.min.js"></script>
+    <script src="<?= base_url() ?>assets/landing/plugins/slick/slick.min.js"></script>
     <!-- venobox -->
-    <script src="<?= base_url(); ?>assets/landing/plugins/Venobox/venobox.min.js"></script>
+    <script src="<?= base_url() ?>assets/landing/plugins/Venobox/venobox.min.js"></script>
     <!-- aos -->
-    <script src="<?= base_url(); ?>assets/landing/plugins/aos/aos.js"></script>
+    <script src="<?= base_url() ?>assets/landing/plugins/aos/aos.js"></script>
     <!-- Main Script -->
-    <script src="<?= base_url(); ?>assets/landing/js/script.js"></script>
+    <script src="<?= base_url() ?>assets/landing/js/script.js"></script>
 
 </body>
 

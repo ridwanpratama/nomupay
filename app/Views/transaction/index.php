@@ -1,13 +1,13 @@
-<?= $this->extend('layouts/master') ?>
+<?= $this->extend("layouts/master") ?>
 
-<?= $this->section('content') ?>
+<?= $this->section("content") ?>
 <div class="content mt-4">
     <div class="row">
         <div class="col-md-4">
             <div class="card current-balance shadow mb-4">
                 <div class="card-body">
                     <h5 class="card-title">Current Balance</h5>
-                    <p class="card-text">Rp <?= number_format($userBalance['balance'], 0, ',', '.') ?></p>
+                    <p class="card-text">Rp <?= number_format($userBalance["balance"], 0, ",", ".") ?></p>
                 </div>
             </div>
         </div>
@@ -87,9 +87,9 @@
     </div>
 </div>
 
-<?= $this->include('transaction/topup') ?>
+<?= $this->include("transaction/topup") ?>
 <?= $this->endSection() ?>
-<?= $this->section('script') ?>
+<?= $this->section("script") ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js" integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {

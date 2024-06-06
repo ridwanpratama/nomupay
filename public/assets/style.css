@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,700,900");
+body {
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+}
 .main {
     margin-left: 300px;
     max-width: calc(100% - 300px);
@@ -16,11 +20,6 @@
     top: 0px;
     bottom: 0px;
     width: 300px;
-}
-
-.sidebar-sticky {
-    top: 20px;
-    position: sticky;
 }
 
 .navbar-brand {
@@ -148,7 +147,7 @@
     border: none;
     background-color: orange;
     color: #fff;
-    padding: 4.5rem 3rem 4rem 2rem;
+    padding: 4.5rem 2rem 4rem 2rem;
 }
 
 .card.topup .title,
