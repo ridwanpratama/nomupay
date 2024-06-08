@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Topup;
+use App\Models\Transaction;
 use App\Models\UserBalance;
 
 class TransactionService
@@ -51,5 +52,27 @@ class TransactionService
     {
         $topupModel = new Topup();
         return $topupModel->where('user_id', $user_id)->findAll();
+    }
+
+    public function sendMoney($recipient, $amount, $note)
+    {
+        $userBalanceModel = new UserBalance();
+        $userBalance = $userBalanceModel->where('user_id', session('id'))->first();
+
+        if ($userBalance['balance'] < $amount) {
+            return false;
+        }
+
+        $updatedBalance = $userBalance['balance'] - $amount;
+        $userBalanceModel->set(['balance' => $updatedBalance])->where('user_id', session('id'))->update();
+        
+        $transaction = new Transaction();
+        $transaction->insert([
+            'user_id' => session('id'),
+            'category_id' => 1,
+            'amount' => $amount,
+            'type' => 'Transfer',            
+            'description' => $note
+        ]);
     }
 }

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserProfile extends Model
+class Recipient extends Model
 {
-    protected $table            = 'user_profile';
+    protected $table            = 'recipient';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
@@ -14,13 +14,9 @@ class UserProfile extends Model
     protected $protectFields    = true;
     protected $allowedFields = [
         'user_id',
-        'address',
-        'city',
-        'postal_code',
-        'image',
-        'bank_id',
-        'bank_number'
+        'phone',
     ];
 
+    protected $uniqueFields = ['user_id', 'phone'];
     protected bool $allowEmptyInserts = false;
 }

@@ -16,40 +16,40 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h4>Register User</h4>
-                            <?php if (session()->has('errors')) : ?>
-                                <div class="alert alert-danger">
-                                    <ul class="py-0 my-0">
-                                        <?php foreach (session('errors') as $error) : ?>
-                                            <li><?= esc($error) ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            <?php endif; ?>
+                        <?php if (session()->has('errors')) : ?>
+                            <div class="alert alert-danger">
+                                <ul class="py-0 my-0">
+                                    <?php foreach (session('errors') as $error) : ?>
+                                        <li><?= esc($error) ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        <?php endif; ?>
 
-                            <form action="<?php echo base_url(); ?>/auth/register" method="post">
-                                <?= csrf_field() ?>
-                                <div class="form-group mb-3">
-                                    <input type="text" name="name" placeholder="Name" value="<?= set_value('name') ?>" class="form-control" required>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <input type="text" name="phone" id="phone" placeholder="Phone" value="<?= set_value('phone') ?>" class="form-control" required>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <input type="email" name="email" placeholder="Email" value="<?= set_value('email') ?>" class="form-control" required>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <input type="password" name="password" placeholder="Password" class="form-control" required>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <input type="password" name="password_confirmation" placeholder="Confirm Password" class="form-control" required>
-                                </div>
-                                <div>
-                                    <p class="text-center">Already have an account? <a href="<?= base_url(); ?>auth/login">Sign In</a></p>
-                                </div>
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary">Sign Up</button>
-                                </div>
-                            </form>
+                        <form action="<?php echo base_url(); ?>/auth/register" method="post">
+                            <?= csrf_field() ?>
+                            <div class="form-group mb-3">
+                                <input type="text" name="name" placeholder="Name" value="<?= set_value('name') ?>" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="text" name="phone" id="phone" placeholder="Phone" value="<?= set_value('phone') ?>" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="email" name="email" placeholder="Email" value="<?= set_value('email') ?>" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="password" name="password" placeholder="Password" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="password" name="password_confirmation" placeholder="Confirm Password" class="form-control" required>
+                            </div>
+                            <div>
+                                <p class="text-center">Already have an account? <a href="<?= base_url(); ?>auth/login">Sign In</a></p>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Sign Up</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -59,25 +59,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         const phoneInput = document.getElementById('phone');
-        
-        phoneInput.addEventListener('input', function(event) {
-            let phoneNumber = event.target.value.replace(/\D/g, '');
-            if (phoneNumber.startsWith('628')) {
-                phoneNumber = '08' + phoneNumber.substring(3);
+        phoneInput.addEventListener('input', function() {
+            let phoneNumber = this.value.replace(/\D/g, '');
+            if (phoneNumber.startsWith('62')) {
+                phoneNumber = '0' + phoneNumber.slice(2);
             }
 
-            let formattedPhoneNumber;
-            if (phoneNumber.length <= 4) {
-                formattedPhoneNumber = phoneNumber;
-            } else if (phoneNumber.length <= 7) {
-                formattedPhoneNumber = `${phoneNumber.slice(0, 4)}-${phoneNumber.slice(4)}`;
-            } else if (phoneNumber.length <= 11) {
-                formattedPhoneNumber = `${phoneNumber.slice(0, 4)}-${phoneNumber.slice(4, 7)}-${phoneNumber.slice(7)}`;
-            } else {
-                formattedPhoneNumber = `${phoneNumber.slice(0, 4)}-${phoneNumber.slice(4, 8)}-${phoneNumber.slice(8, 12)}`;
+            if (phoneNumber.length >= 4) {
+                phoneNumber = phoneNumber.replace(/(\d{4})/g, '$1-');
             }
-
-            event.target.value = formattedPhoneNumber;
+            if (phoneNumber.length > 4 && phoneNumber.endsWith('-')) {
+                phoneNumber = phoneNumber.slice(0, -1);
+            }
+            this.value = phoneNumber;
         });
     </script>
 </body>

@@ -3,7 +3,7 @@
 <?= $this->section("content") ?>
 <div class="content mt-4">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card current-balance shadow mb-4">
                 <div class="card-body">
                     <h5 class="card-title">Current Balance</h5>
@@ -11,7 +11,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card bg-success topup" data-bs-toggle="modal" data-bs-target="#topupModal">
                 <div class="card-body">
                     <h5 class="card-title">Topup</h5>
@@ -19,13 +19,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
             <div class="card withdraw">
                 <div class="card-body">
                     <h5 class="card-title">Withdraw</h5>
                     <p class="card-text"><i class="fas fa-arrow-right"></i> Click to withdraw</p>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="col-md-12">
             <div class="card">
@@ -87,7 +87,7 @@
 <?= $this->include("transaction/topup") ?>
 <?= $this->endSection() ?>
 <?= $this->section("script") ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js" integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         initEvent();
@@ -103,12 +103,13 @@
     }
 
     function formatNumber(num) {
+        num = num.replace(/[^0-9]/g, '');
         return num.replace(/,/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
 
     function setPaymentMethodSelectValue() {
         document.getElementById('payment_method_type').addEventListener('change', function() {
-            var selectedType = this.value;
+            const selectedType = this.value;
             axios.get('transaction/payment-method?type=' + selectedType)
                 .then(function(response) {
                     const paymentMethods = response.data;

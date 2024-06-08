@@ -44,17 +44,25 @@ $routes->group("mypanel", ["filter" => "auth"], static function ($routes) {
         $routes->get('check-topup', 'TransactionController::checkTopupStatus');
     });
 
+    // Routes user
+    $routes->get('check-user-phone', 'UserController::checkUserPhone');
+
     // Routes Send
     $routes->group("send", static function ($routes) {
         $routes->get("/", "SendController::index");
+        $routes->post("add-recipient", "SendController::addRecipient");
+        $routes->post("send-money", "SendController::sendMoney");
     });
 
     // Routes Receive
     $routes->group("receive", static function ($routes) {
         $routes->get("/", "ReceiveController::index");
     });
+    
     $routes->group("settings", static function ($routes) {
         $routes->get("/", "SettingsController::index");
+        $routes->post("update-bank", "SettingsController::updateBank");
+        $routes->post("add-category", "SettingsController::addCategory");
     });
 
     $routes->get('csrf-token', 'Auth\CsrfController::getToken');

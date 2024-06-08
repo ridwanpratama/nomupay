@@ -9,7 +9,7 @@
                         <h5 class="card-title">Receive Money</h5>
                         <div class="text-center">
                             <img src="<?= base_url(); ?>assets/img/qr-code.svg" class="img-fluid" alt="qr-account">
-                            <p class="card-text fs-3 pb-3">08XXXXXXXXXX</p>
+                            <p class="card-text fs-3 pb-3"><?= session('phone') ?></p>
                         </div>
                     </div>
                 </div>
