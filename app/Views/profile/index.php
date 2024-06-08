@@ -11,7 +11,11 @@
                         <h5 class="card-title d-inline-block me-2">Profile</h5>
                     </div>
                     <div class="text-center">
-                        <img src="assets/img/profile.png" class="img-fluid" width="150" height="150" alt="profile-image" onerror="this.onerror=null;this.src='<?= base_url(); ?>assets/img/profile.png';">
+                        <?php if (isset($profile['image'])): ?>
+                            <img src="<?= base_url('uploads/profile/' . $profile['image']) ?>" class="img-fluid" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;" alt="profile-image">
+                        <?php else: ?>
+                            <img src="assets/img/profile.png" class="img-fluid" width="150" height="150" alt="profile-image" onerror="this.onerror=null; this.src='<?= base_url(); ?>assets/img/profile.png';">
+                        <?php endif ?>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -114,13 +118,21 @@
                 <div class="card-body">
                     <h5 class="card-title">Update Profile</h5>
 
-                    <form action="<?= base_url(); ?>mypanel/profile/update" method="post">
+                    <?php if (session()->has('berhasil')) : ?>
+                        <div class="alert alert-success">
+                            <?= session()->get('berhasil') ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <form action="<?= base_url(); ?>mypanel/profile/update" method="post" enctype="multipart/form-data">
                         <?= csrf_field() ?>
                         <div class="mb-3">
                             <label for="image" class="form-label">Profile Image</label>
                             <input type="file" class="form-control" name="image" id="image">
                         </div>
                         <input type="hidden" name="user_id" value="<?= session()->get('id') ?>" required>
+                        <input type="hidden" name="id" value="<?= $profile['id'] ?? '' ?>">
+                        <input type="hidden" name="image_exist" value="<?= $profile['image'] ?? '' ?>">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name <span style="color: red;">*</span></label>
                             <input type="text" class="form-control" name="name" id="name" value="<?= session()->get('name') ?>" required>
@@ -133,7 +145,6 @@
                             <label for="phone" class="form-label">Phone <span style="color: red;">*</span></label>
                             <input type="text" class="form-control" name="phone" id="phone" value="<?= session()->get('phone') ?>" required>
                         </div>
-                        <input type="hidden" name="id" value="<?= $profile['id'] ?? '' ?>">
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" class="form-control" name="address" id="address" value="<?= $profile['address'] ?? '' ?>">

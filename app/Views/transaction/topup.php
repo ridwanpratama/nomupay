@@ -15,7 +15,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="payment_method_type" class="form-label">Payment Method Type</label>
-                        <select name="payment_method_type" id="payment_method_type" class="form-control">
+                        <select name="payment_method_type" id="payment_method_type" class="form-select">
                             <option value="">Select Payment Method Type</option>
                             <?php foreach ($paymentMethodTypes as $payment_method_type) : ?>
                                 <option value="<?= $payment_method_type['id'] ?>"><?= $payment_method_type['name'] ?></option>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="payment_method_id" class="form-label">Payment Method</label>
-                        <select name="payment_method_id" id="payment_method_id" class="form-control">
+                        <select name="payment_method_id" id="payment_method_id" class="form-select">
                             <option value="">Select Payment Method</option>
                         </select>
                     </div>
