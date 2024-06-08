@@ -36,8 +36,8 @@
         <div class="col-md-6">
             <div class="card bg-success qr-pay current-balance mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">Payment</h5>
-                    <p class="card-text"><i class="fas fa-qrcode"></i> Click here to pay</p>
+                    <h5 class="card-title">Send Money</h5>
+                    <p class="card-text"><i class="fas fa-qrcode"></i> Upload QR to Send Money</p>
                 </div>
             </div>
 

@@ -9,7 +9,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url() ?>mypanel/transaction">
-                    <i class="fas fa-credit-card me-3"></i> Transaction
+                    <i class="fas fa-credit-card me-3"></i> Topup
                 </a>
             </li>
             <li class="nav-item">
@@ -27,11 +27,11 @@
                     <i class="fas fa-user me-3"></i> Profile
                 </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="<?= base_url() ?>mypanel/settings">
                     <i class="fas fa-cog me-3"></i> Settings
                 </a>
-            </li>
+            </li> -->
         </ul>
         <div class="sidebar-footer mt-auto mb-5">
             <li class="nav-item">
