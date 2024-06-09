@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Topup;
 use App\Models\Transaction;
 use App\Models\UserBalance;
+use Config\Database;
+use Throwable;
 
 class TransactionService
 {
@@ -57,23 +59,43 @@ class TransactionService
 
     public function sendMoney($recipient, $amount, $note)
     {
-        $userBalanceModel = new UserBalance();
-        $userBalance = $userBalanceModel->where('user_id', session('id'))->first();
+        $db = Database::connect();
+        $db->transStart();
 
-        if ($userBalance['balance'] < $amount) {
-            return false;
+        try {
+
+            $userService = new UserService();
+            $userRecipient = $userService->findUserByPhone($recipient);
+    
+            $userBalanceModel = new UserBalance();
+            $userBalance = $userBalanceModel->where('user_id', session('id'))->first();
+            $recipientBalance = $userBalanceModel->where('user_id', $userRecipient['id'])->first();
+    
+            if ($userBalance['balance'] < $amount) {
+                $db->transRollback();
+                return false;
+            }
+    
+            $updatedBalance = $userBalance['balance'] - $amount;
+            $updatedRecipientBalance = $recipientBalance['balance'] + $amount;
+    
+            $userBalanceModel->set('balance', $updatedBalance)->where('user_id', session('id'))->update();
+            $userBalanceModel->set('balance', $updatedRecipientBalance)->where('user_id', $userRecipient['id'])->update();
+    
+            $transaction = new Transaction();
+            $transaction->insert([
+                'user_id' => session('id'),
+                'category_id' => 1,
+                'amount' => $amount,
+                'type' => 'Transfer',
+                'description' => $note
+            ]);
+            
+            $db->transCommit();
+            return true;
+        } catch (Throwable $e) {
+            $db->transRollback();
+            throw $e;
         }
-
-        $updatedBalance = $userBalance['balance'] - $amount;
-        $userBalanceModel->set(['balance' => $updatedBalance])->where('user_id', session('id'))->update();
-        
-        $transaction = new Transaction();
-        $transaction->insert([
-            'user_id' => session('id'),
-            'category_id' => 1,
-            'amount' => $amount,
-            'type' => 'Transfer',            
-            'description' => $note
-        ]);
     }
 }
