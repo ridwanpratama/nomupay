@@ -4,18 +4,18 @@
     <div class="content mt-4">
         <div class="row">
             <div class="col-md-4">
-                <div class="card bg-primary-subtle shadow">
+                <div class="card shadow">
                     <div class="card-body">
                         <h5 class="card-title">Receive Money</h5>
                         <div class="text-center">
-                            <img src="<?= base_url(); ?>assets/img/qr-code.svg" class="img-fluid" alt="qr-account">
+                            <img src="<?= $qrCode ?>" class="img-fluid" alt="qr-account">
                             <p class="card-text fs-3 pb-3"><?= session('phone') ?></p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="card">
+                <div class="card bg-primary-subtle">
                     <div class="card-body">
                         <h5 class="card-title">How to Receive</h5>
                         <ul>
