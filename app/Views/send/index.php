@@ -17,11 +17,12 @@
                         <h5 class="card-title d-inline-block me-2">Recipient</h5>
                         <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addRecipient">+ Add</button>
                     </div>
+
                     <ul class="list-group list-group-flush">
                         <?php foreach ($recipients as $recipient) : ?>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
-                                    <p class="mb-0"><?= $recipient['name'] ?></p>
+                                    <p class="mb-0" style="width: 200px;"><?= $recipient['name'] ?></p>
                                 </div>
                                 <div>
                                     <p class="mb-0"><?= $recipient['phone'] ?></p>
