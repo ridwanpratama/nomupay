@@ -51,7 +51,8 @@ class TransactionService
     public function getTopUpHistory($user_id)
     {
         $topupModel = new Topup();
-        return $topupModel->where('user_id', $user_id)->findAll();
+        return $topupModel->where('user_id', $user_id)
+            ->orderBy('created_at', 'DESC')->findAll();
     }
 
     public function sendMoney($recipient, $amount, $note)
