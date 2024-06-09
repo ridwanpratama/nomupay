@@ -57,7 +57,7 @@
                             <select class="form-select mb-3" name="recipient-tf" id="recipient" onchange="checkCustomInput(this)" required>
                                 <option value="">Select Recipient</option>
                                 <?php foreach ($recipients as $recipient) : ?>
-                                    <option value="<?= $recipient['id'] ?>"><?= $recipient['name'] ?></option>
+                                    <option value="<?= $recipient['phone'] ?>"><?= $recipient['name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <input type="text" class="form-control d-none" id="customRecipientInput" placeholder="Enter new recipient">

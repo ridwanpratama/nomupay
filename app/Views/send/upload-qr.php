@@ -11,7 +11,7 @@
                     <?= csrf_field() ?>
                     <div class="form-group mb-1">
                         <label for="qr-upload" class="form-label">Upload Receiver's QR</label>
-                        <input type="file" class="form-control" name="qr-upload" id="qr-upload" required>
+                        <input type="file" class="form-control" name="qr-file" id="qr-upload" required>
                     </div>
                     <div class="form-group mb-1">
                         <label for="amount-qr" class="form-label">Amount</label>
