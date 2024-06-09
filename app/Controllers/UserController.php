@@ -19,9 +19,9 @@ class UserController extends BaseController
         $user = $userService->findUserByPhone($phoneNumber);
 
         if (empty($user)) {
-            return $this->response->setJSON(['success' => false]);
+            return $this->response->setJSON(['success' => false, 'message' => 'User not found']);
         } else {
-            return $this->response->setJSON(['success' => true]);
+            return $this->response->setJSON(['success' => true, 'message' => 'User found', 'user' => $user, 'name' => $user['name']]);
         }
     }
 }
