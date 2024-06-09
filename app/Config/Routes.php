@@ -53,6 +53,7 @@ $routes->group("mypanel", ["filter" => "auth"], static function ($routes) {
         $routes->post("add-recipient", "SendController::addRecipient");
         $routes->post("send-money", "SendController::sendMoney");
         $routes->post("send-qr", "SendController::sendMoneyQr");
+        $routes->get('delete-recipient/(:num)', 'SendController::deleteRecipient/$1');
     });
 
     // Routes Receive
