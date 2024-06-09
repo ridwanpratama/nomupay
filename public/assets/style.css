@@ -157,7 +157,8 @@ body {
 }
 
 .card.topup .card-text,
-.card.withdraw .card-text {
+.card.withdraw .card-text,
+.card.qr-pay .card-text {
     font-size: 1.55rem;
 }
 
