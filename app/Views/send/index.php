@@ -92,9 +92,11 @@
             let phoneNumber = this.value.replace(/\D/g, '');
             if (phoneNumber.startsWith('62')) {
                 phoneNumber = '0' + phoneNumber.slice(2);
-            } else if (phoneNumber.length >= 4) {
+            }
+            if (phoneNumber.length >= 4) {
                 phoneNumber = phoneNumber.replace(/(\d{4})/g, '$1-');
-            } else if (phoneNumber.length > 4 && phoneNumber.endsWith('-')) {
+            }
+            if (phoneNumber.length > 4 && phoneNumber.endsWith('-')) {
                 phoneNumber = phoneNumber.slice(0, -1);
             }
             this.value = phoneNumber;
