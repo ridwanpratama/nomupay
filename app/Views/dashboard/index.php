@@ -9,7 +9,7 @@
                     <div class="card current-balance shadow mb-4">
                         <div class="card-body">
                             <h5 class="card-title">Current Balance</h5>
-                            <p class="card-text">Rp <?= number_format($userBalance["balance"], 0, ",", ".") ?></p>
+                            <p class="card-text">Rp <?= number_format($userBalance["balance"], 0, ",", ",") ?></p>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Latest Transaction</h5>
                     <ul class="list-group list-group-flush">
-                        <?php foreach ($latestTransactions as $transaction) : ?>
+                        <?php foreach ($latestTransactions['data'] as $transaction) : ?>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
                                     <p class="mb-0"><?= $transaction['category'] ?> <span class="text-light badge <?php if ($transaction['type'] == 'Income') echo('bg-primary'); else echo('bg-danger') ?>">
@@ -85,8 +85,8 @@
         data: {
             labels: ["Receive", "Send", "Topup"],
             datasets: [{
-                label: "# of Votes",
-                data: [12, 19, 3],
+                label: "Transaction",
+                data: [<?= $latestTransactions['receivedCount'] ?>, <?= $latestTransactions['transactionCount'] ?>, <?= $latestTransactions['receivedCount'] ?>],
                 borderWidth: 1,
 
             }, ],
