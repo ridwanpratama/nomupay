@@ -28,14 +28,13 @@
                                     <li>Show the QR code directly to the sender.</li>
                                     <li>Save the QR code as an image and share it via messaging apps, email,
                                         or social media.</li>
-                                    <li>Copy the QR code link and share the link with the sender.</li>
                                 </ul>
                             </li>
-                            <li>The sender will scan your QR code in the <strong><em>Send</em></strong>
+                            <li>The sender will upload your QR code in the <strong><em>Send</em></strong>
                                 menu.</li>
                             <li>The sender will enter the amount they want to transfer.</li>
                             <li>The sender will confirm the transaction.</li>
-                            <li>You will receive a notification that you have received a balance of money.</li>
+                            <li>Your balance will be updated with the amount transferred.</li>
                         </ul>
                     </div>
                 </div>
