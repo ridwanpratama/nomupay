@@ -26,6 +26,11 @@
                                 <div>
                                     <p class="mb-0"><?= $recipient['phone'] ?></p>
                                 </div>
+                                <div>
+                                    <a href="<?= base_url('mypanel/send/delete-recipient/' . $recipient['id']); ?>" style="color: red;">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
                             </li>
                         <?php endforeach; ?>
                     </ul>

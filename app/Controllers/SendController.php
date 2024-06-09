@@ -5,6 +5,8 @@ use App\Controllers\BaseController;
 use App\Services\RecipientService;
 use App\Services\TransactionService;
 use App\Services\UserService;
+use CodeIgniter\Exceptions\PageNotFoundException;
+use App\Models\Recipient;
 
 class SendController extends BaseController
 {
@@ -53,5 +55,20 @@ class SendController extends BaseController
         }
 
         return redirect()->back();
+    }
+
+    public function deleteRecipient($id) 
+    {
+        $recipientModel = new Recipient();
+
+        $recipient = $recipientModel->find($id);
+        
+        if ($recipient) {
+            $recipientModel->delete($id);
+
+            return redirect()->back()->with('message', 'Recipient deleted successfully.');
+        } else {
+            throw new PageNotFoundException("User dengan ID $id tidak ditemukan");
+        }
     }
 }
