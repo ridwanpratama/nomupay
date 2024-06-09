@@ -11,7 +11,7 @@
                     <?= csrf_field() ?>
                     <div class="mb-3">
                         <label for="image" class="form-label">Amount</label>
-                        <input type="text" name="amount" class="form-control" id="amount" placeholder="Min 15,  000" required>
+                        <input type="text" name="amount" class="form-control" id="amount" placeholder="Min 15,000" required>
                     </div>
                     <div class="mb-3">
                         <label for="payment_method_type" class="form-label">Payment Method Type</label>

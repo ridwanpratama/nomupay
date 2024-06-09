@@ -21,7 +21,7 @@
                             </div>
                             <div>
                                 <h5 class="card-title">Income</h5>
-                                <p class="card-text">Rp 2,3000,000</p>
+                                <p class="card-text">Rp <?= number_format($income, 0, ",", ",") ?></p>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                             </div>
                             <div>
                                 <h5 class="card-title">Expenses</h5>
-                                <p class="card-text">Rp 2,3000,000</p>
+                                <p class="card-text">Rp <?= number_format($expenses['amount'], 0, ",", ",") ?></p>
                             </div>
                         </div>
                     </div>
@@ -53,33 +53,20 @@
                 <div class="card-body">
                     <h5 class="card-title">Latest Transaction</h5>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="mb-0">NomuPay</p>
-                                <p class="mb-0"><span class="text-light badge text-bg-danger">Sent</span> 20 Maret 2024</p>
-                            </div>
-                            <div>
-                                <p class="mb-0">Rp 2,3000,000</p>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="mb-0">Coffee</p>
-                                <p class="mb-0"><span class="text-light badge text-bg-primary">Receive</span> 20 Maret 2024</p>
-                            </div>
-                            <div>
-                                <p class="mb-0">Rp 200,000</p>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="mb-0">General</p>
-                                <p class="mb-0"><span class="text-light badge text-bg-danger">Sent</span> 20 Maret 2024</p>
-                            </div>
-                            <div>
-                                <p class="mb-0">Rp 300,000</p>
-                            </div>
-                        </li>
+                        <?php foreach ($latestTransactions as $transaction) : ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="mb-0"><?= $transaction['category'] ?> <span class="text-light badge <?php if ($transaction['type'] == 'Income') echo('bg-primary'); else echo('bg-danger') ?>">
+                                    <?= $transaction['type'] ?></span></p>
+                                    <p class="mb-0">
+                                    </p>
+                                    <span><?= date('d M Y - H:i:s', strtotime($transaction['created_at'])); ?></span>
+                                </div>
+                                <div>
+                                    <p class="mb-0">Rp <?= number_format($transaction['amount'], 0, ",", ",") ?></p>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>

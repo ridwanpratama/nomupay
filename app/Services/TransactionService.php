@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
+use Throwable;
+use Config\Database;
 use App\Models\Topup;
 use App\Models\Transaction;
 use App\Models\UserBalance;
-use Config\Database;
-use Throwable;
+use App\Services\UserService;
 
 class TransactionService
 {
@@ -66,36 +67,115 @@ class TransactionService
 
             $userService = new UserService();
             $userRecipient = $userService->findUserByPhone($recipient);
-    
+
             $userBalanceModel = new UserBalance();
             $userBalance = $userBalanceModel->where('user_id', session('id'))->first();
             $recipientBalance = $userBalanceModel->where('user_id', $userRecipient['id'])->first();
-    
+
             if ($userBalance['balance'] < $amount) {
                 $db->transRollback();
                 return false;
             }
-    
+
             $updatedBalance = $userBalance['balance'] - $amount;
             $updatedRecipientBalance = $recipientBalance['balance'] + $amount;
-    
+
             $userBalanceModel->set('balance', $updatedBalance)->where('user_id', session('id'))->update();
             $userBalanceModel->set('balance', $updatedRecipientBalance)->where('user_id', $userRecipient['id'])->update();
-    
+
             $transaction = new Transaction();
             $transaction->insert([
                 'user_id' => session('id'),
                 'category_id' => 1,
                 'amount' => $amount,
                 'type' => 'Transfer',
-                'description' => $note
+                'description' => $note,
+                'recipient_no' => $userRecipient['phone']
             ]);
-            
+
             $db->transCommit();
             return true;
         } catch (Throwable $e) {
             $db->transRollback();
             throw $e;
         }
+    }
+
+    public function getExpenses($user_id)
+    {
+        $transactionModel = new Transaction();
+        return $transactionModel->where('user_id', $user_id)
+            ->where('category_id', 1)
+            ->where('type', 'Transfer')
+            ->selectSum('amount')
+            ->first();
+    }
+
+    public function getIncome($user_id)
+    {
+        $userService = new UserService();
+        $transactionModel = new Transaction();
+
+        $userRecipient = $userService->findUserById($user_id);
+        $topupHistory = $this->getTopUpHistory($user_id);
+
+        $topupAmount = 0;
+        foreach ($topupHistory as $value) {
+            $topupAmount += $value['amount'];
+        }
+
+        $received = $transactionModel->where('recipient_no', $userRecipient['phone'])
+            ->where('type', 'Transfer')
+            ->selectSum('amount')
+            ->first();
+
+        return $received['amount'] + $topupAmount;
+    }
+
+    public function getLatestTransactions($userId)
+    {
+        $transactionModel = new Transaction();
+        $topupModel = new Topup();
+        $userService = new UserService();
+        $userRecipient = $userService->findUserById($userId);
+
+        $transactions = $transactionModel->where('user_id', $userId)
+            ->orderBy('created_at', 'DESC')
+            ->limit(5)
+            ->findAll();
+
+        $topups = $topupModel->where('user_id', $userId)
+            ->orderBy('created_at', 'DESC')
+            ->limit(5)
+            ->findAll();
+
+        $received = $transactionModel->where('recipient_no', $userRecipient['phone'])
+            ->where('type', 'Transfer')
+            ->orderBy('created_at', 'DESC')
+            ->limit(5)
+            ->findAll();
+
+        $mappedTransactions = $this->mapLatestTransactions($transactions, 'Expenses', 'Send');
+        $mappedTopups = $this->mapLatestTransactions($topups, 'Income', 'Top Up');
+        $mappedReceived = $this->mapLatestTransactions($received, 'Income', 'Receive');
+
+        $combined = array_merge($mappedTransactions, $mappedTopups, $mappedReceived);
+
+        // Sorting combined transactions by created_at
+        usort($combined, fn ($a, $b) => strtotime($b['created_at']) - strtotime($a['created_at']));
+
+        return array_slice($combined, 0, 5);
+    }
+
+    private function mapLatestTransactions($transactions, $type, $category)
+    {
+        return array_map(fn ($transaction) => [
+            'id' => $transaction['id'],
+            'user_id' => $transaction['user_id'],
+            'amount' => $transaction['amount'],
+            'created_at' => $transaction['created_at'],
+            'type' => $type,
+            'category' => $category
+        ], $transactions);
     }
 }

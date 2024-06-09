@@ -61,42 +61,41 @@ class SendController extends BaseController
 
     public function sendMoneyQr()
     {
-        $qr = $this->request->getFile('qr-file');
+        $qrFile = $this->request->getFile('qr-file');
         $amount = $this->request->getPost('amount-qr');
         $note = $this->request->getPost('note-qr');
 
-        if ($qr->isValid() && !$qr->hasMoved()) {
-            // Generate a random name for the file and move it
-            $newName = $qr->getRandomName();
-            $qr->move(FCPATH . 'uploads/qr', $newName);
-            $qrNewPath = FCPATH . 'uploads/qr/' . $newName;
-
-            // Read QR from new path
-            $qrCodeLib = new QRCode();
-            $readQrValue = $qrCodeLib->readFromFile($qrNewPath);
-            if ($readQrValue === null) {
-                unlink($qrNewPath);
-                return redirect()->back()->with('message', 'Failed to read QR code');
-            }
-            $contentQr = (string) $readQrValue->data;
-            
-            // Find recipient user by the content of the QR code
-            $userService = new UserService();
-            $recipient = $userService->findUserByPhone($contentQr);            
-            
-            $send = $this->transactionService->sendMoney($recipient['phone'], str_replace(',', '', $amount), $note);
-            if ($send == false) {
-                unlink($qrNewPath);
-                return redirect()->back()->with('message', 'Balance not enough');
-            }
-
-            // Delete QR from new path after successful processing
-            unlink($qrNewPath);
-            return redirect()->back()->with('message', 'Money sent successfully');
+        if (!$qrFile->isValid()) {
+            return redirect()->back()->with('message', 'Invalid QR file');
         }
 
-        // Handle invalid or missing QR fil
-        return redirect()->back()->with('message', 'Invalid QR file');
+        $qrFileName = $qrFile->getRandomName();
+        $qrFilePath = FCPATH . 'uploads/qr/' . $qrFileName;
+        $qrFile->move(FCPATH . 'uploads/qr', $qrFileName);
+
+        $qrValue = (new QRCode())->readFromFile($qrFilePath);
+
+        if ($qrValue === null) {
+            unlink($qrFilePath);
+            return redirect()->back()->with('message', 'Failed to read QR code');
+        }
+
+        $recipient = (new UserService())->findUserByPhone((string) $qrValue->data);
+
+        if (empty($recipient)) {
+            unlink($qrFilePath);
+            return redirect()->back()->with('message', 'Recipient not found');
+        }
+
+        $sendSuccessful = $this->transactionService->sendMoney($recipient['phone'], str_replace(',', '', $amount), $note);
+
+        if (!$sendSuccessful) {
+            unlink($qrFilePath);
+            return redirect()->back()->with('message', 'Balance not enough');
+        }
+
+        unlink($qrFilePath);
+        return redirect()->back()->with('message', 'Money sent successfully');
     }
 
     public function deleteRecipient($id)

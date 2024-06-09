@@ -11,7 +11,11 @@ class DashboardController extends BaseController
     {
         $transactionService = new TransactionService();
         $userBalance = $transactionService->getUserBalance(session('id'));
-        
-        return view('dashboard/index', compact('userBalance'));
+        $expenses = $transactionService->getExpenses(session('id'));
+        $income = $transactionService->getIncome(session('id'));
+        $latestTransactions = $transactionService->getLatestTransactions(session('id'));
+        // dd($latestTransactions);
+
+        return view('dashboard/index', compact('userBalance', 'expenses', 'income', 'latestTransactions'));
     }
 }
