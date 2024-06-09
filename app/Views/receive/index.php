@@ -25,8 +25,7 @@
                             <li>You will see your unique NomuPay QR code.</li>
                             <li>Share the QR code with the sender in the following ways:
                                 <ul>
-                                    <li>Show the QR code directly to the sender.</li>
-                                    <li>Save the QR code as an image and share it via messaging apps, email,
+                                    <li>Screenshot the QR code as an image and share it via messaging apps, email,
                                         or social media.</li>
                                 </ul>
                             </li>
