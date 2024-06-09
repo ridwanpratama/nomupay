@@ -10,7 +10,6 @@ class ReceiveController extends BaseController
     {
         $qrCodeLib = new QRCode();
         $qrValue = session('phone');
-
         $qrCode = $qrCodeLib->render($qrValue);
         
         return view('receive/index', compact('qrCode'));

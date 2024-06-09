@@ -54,4 +54,9 @@ class SendController extends BaseController
 
         return redirect()->back();
     }
+
+    public function sendMoneyQr()
+    {
+        
+    }
 }

@@ -34,7 +34,7 @@
         </div>
 
         <div class="col-md-6">
-            <div class="card bg-success qr-pay current-balance mb-4">
+            <div class="card bg-success qr-pay current-balance mb-4" data-bs-toggle="modal" data-bs-target="#sendQR">
                 <div class="card-body">
                     <h5 class="card-title">Send Money</h5>
                     <p class="card-text"><i class="fas fa-qrcode"></i> Upload QR to Send Money</p>
@@ -72,6 +72,7 @@
     </div>
 </div>
 <?= $this->include('send/add-recipient') ?>
+<?= $this->include('send/upload-qr') ?>
 <?= $this->endSection() ?>
 <?= $this->section("script") ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -86,11 +87,9 @@
             let phoneNumber = this.value.replace(/\D/g, '');
             if (phoneNumber.startsWith('62')) {
                 phoneNumber = '0' + phoneNumber.slice(2);
-            }
-            if (phoneNumber.length >= 4) {
+            } else if (phoneNumber.length >= 4) {
                 phoneNumber = phoneNumber.replace(/(\d{4})/g, '$1-');
-            }
-            if (phoneNumber.length > 4 && phoneNumber.endsWith('-')) {
+            } else if (phoneNumber.length > 4 && phoneNumber.endsWith('-')) {
                 phoneNumber = phoneNumber.slice(0, -1);
             }
             this.value = phoneNumber;
@@ -99,6 +98,11 @@
         const amountInput = document.getElementById('amount-tf');
         amountInput.addEventListener('input', function() {
             amountInput.value = formatNumber(amountInput.value);
+        });
+
+        const amountInputQr = document.getElementById('amount-qr');
+        amountInputQr.addEventListener('input', function() {
+            amountInputQr.value = formatNumber(amountInputQr.value);
         });
     });
 
