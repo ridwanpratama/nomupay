@@ -28,7 +28,7 @@
     <section class="fixed-top navigation">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="index.html" style="font-weight: bold; font-size: 32px"><span>Nomu</span><span class="text-primary">Pay</span></a>
+                <a class="navbar-brand" href="/" style="font-weight: bold; font-size: 32px"><span>Nomu</span><span class="text-primary">Pay</span></a>
                 <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -61,9 +61,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center zindex-1">
-                    <h1 class="mb-3">Take Control of your<br>
-                        Business Transactions</h1>
-                    <p class="mb-4">Get your exclusive e-wallet for business with NomuPay! Send, receive, and pay transactions effortlessly</p>
+                    <h1 class="mb-3">Take Control of </br>
+                        Your E-Wallet
+                    </h1>
+                    <p class="mb-4">Get your exclusive e-wallet with NomuPay! Send, receive, and top up effortlessly</p>
                     <a href="<?= base_url() ?>auth/register" class="btn btn-secondary btn-lg">Get Started</a>
                     <!-- banner image -->
                     <img class="img-fluid w-100 banner-image shadow rounded" src="<?= base_url() ?>assets/landing/images/hero-area/banner-img-s.png" alt="banner-img">
