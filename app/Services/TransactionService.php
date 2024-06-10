@@ -141,48 +141,51 @@ class TransactionService
 
         $startOfMonth = date('Y-m-01 00:00:00');
         $endOfMonth = date('Y-m-t 23:59:59');
-    
+
         $transactions = $transactionModel->where('user_id', $userId)
             ->orderBy('created_at', 'DESC')
             ->where('created_at >=', $startOfMonth)
             ->where('created_at <=', $endOfMonth)
             ->findAll();
-    
+
         $topups = $topupModel->where('user_id', $userId)
             ->orderBy('created_at', 'DESC')
             ->where('created_at >=', $startOfMonth)
             ->where('created_at <=', $endOfMonth)
             ->findAll();
-    
-        $received = $transactionModel->where('recipient_no', $userRecipient['phone'])
-            ->where('type', 'Transfer')
-            ->orderBy('created_at', 'DESC')
-            ->where('created_at >=', $startOfMonth)
-            ->where('created_at <=', $endOfMonth)
-            ->findAll();
-    
+
+        $received = [];
+        if ($userRecipient && $userRecipient['phone'] !== null) {
+            $received = $transactionModel->where('recipient_no', $userRecipient['phone'])
+                ->where('type', 'Transfer')
+                ->orderBy('created_at', 'DESC')
+                ->where('created_at >=', $startOfMonth)
+                ->where('created_at <=', $endOfMonth)
+                ->findAll();
+        }
+
         $transactionCount = count($transactions);
         $topupCount = count($topups);
         $receivedCount = count($received);
-    
+
         $mappedTransactions = $this->mapLatestTransactions($transactions, 'Expenses', 'Send');
         $mappedTopups = $this->mapLatestTransactions($topups, 'Income', 'Top Up');
         $mappedReceived = $this->mapLatestTransactions($received, 'Income', 'Receive');
-    
+
         $combined = array_merge($mappedTransactions, $mappedTopups, $mappedReceived);
-    
+
         // Sorting combined transactions by created_at
         usort($combined, fn ($a, $b) => strtotime($b['created_at']) - strtotime($a['created_at']));
         // Only return the top 5 combined transactions after sorting
         $combined = array_slice($combined, 0, 5);
-    
+
         $result = [
             'transactionCount' => $transactionCount,
             'topupCount' => $topupCount,
             'receivedCount' => $receivedCount,
             'data' => $combined
         ];
-    
+
         return $result;
     }
 
