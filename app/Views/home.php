@@ -45,8 +45,7 @@
                             <a class="nav-link" href="https://wa.me/6285710386771">Contact</a>
                         </li>
                     </ul>
-                    <a href="<?= base_url() ?><?php if (session()->get("isLoggedIn")): ?>mypanel/dashboard<?php else: ?>auth/register<?php endif; ?>" class="btn btn-primary ml-lg-3 primary-shadow"><?= session()->get("isLoggedIn") ? "Dashboard" : "Sign Up" ?>
-                    </a>
+                    <a href="<?= base_url() . (session()->get("isLoggedIn") ? 'mypanel/dashboard' : 'auth/register') ?>" class="btn btn-primary ml-lg-3 primary-shadow"><?= session()->get("isLoggedIn") ? "Dashboard" : "Sign Up" ?>
                 </div>
             </nav>
         </div>
