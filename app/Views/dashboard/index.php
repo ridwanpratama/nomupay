@@ -86,7 +86,7 @@
             labels: ["Receive", "Send", "Topup"],
             datasets: [{
                 label: "Transaction",
-                data: [<?= $latestTransactions['receivedCount'] ?>, <?= $latestTransactions['transactionCount'] ?>, <?= $latestTransactions['receivedCount'] ?>],
+                data: [<?= $latestTransactions['receivedCount'] ?>, <?= $latestTransactions['transactionCount'] ?>, <?= $latestTransactions['topupCount'] ?>],
                 borderWidth: 1,
 
             }, ],

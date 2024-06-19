@@ -86,7 +86,6 @@ class TransactionService
             $transaction = new Transaction();
             $transaction->insert([
                 'user_id' => session('id'),
-                'category_id' => 1,
                 'amount' => $amount,
                 'type' => 'Transfer',
                 'description' => $note,
@@ -186,6 +185,7 @@ class TransactionService
             'data' => $combined
         ];
 
+        // dd($result);
         return $result;
     }
 
