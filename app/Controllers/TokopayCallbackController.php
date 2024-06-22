@@ -18,8 +18,8 @@ class TokopayCallbackController extends BaseController
 
         if (isset($data['status'], $data['reff_id'], $data['signature'])) {
             $status = $data['status'];
+            $ref_id = $data['reff_id'];
             if ($status == "Success") {
-                $ref_id = $data['reff_id'];
                 $amount = (string) $data['data']['total_dibayar'];
 
                 $signature_from_tokopay = $data['signature'];

@@ -39,10 +39,9 @@ class TransactionService
 
         $userBalanceModel = new UserBalance();
         $userBalance = $userBalanceModel->where('user_id', $user_id)->first();
-        $updatedBalance = $userBalance['balance'] + $updatedTopup['amount'];
-        $userBalanceModel->update($user_id, ['balance' => $updatedBalance]);
 
-        return json_encode(['success' => true]);
+        $updatedBalance = $userBalance['balance'] + $updatedTopup['amount'];
+        return $userBalanceModel->set('balance', $updatedBalance)->where('user_id', $userBalance['user_id'])->update();
     }
 
     public function getUserBalance($user_id)
