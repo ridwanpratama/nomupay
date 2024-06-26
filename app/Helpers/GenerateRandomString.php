@@ -12,7 +12,7 @@ class GenerateRandomString
 	 */
 	function create(int $length = 10): string
 	{
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$characters = '0123456789';
 		$randomString = '';
 
 		$charactersLength = strlen($characters);
